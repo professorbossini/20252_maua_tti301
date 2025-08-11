@@ -1,4 +1,98 @@
+function eAgora(){
+  let cont = 1
+  function f1(){
+    console.log(cont)
+  }
+  cont++
+  function f2(){
+    console.log(cont)
+  }
+  cont++
+  return {f1, f2}
+  cont++
+}
 
+let eAgoraResult = eAgora()
+eAgoraResult.f1()
+eAgoraResult.f2()
+// function saudacoesFactory(saudacao, nome){
+//   let a
+//   return function(){
+//     console.log(`${saudacao}, ${nome}`)
+//   }
+// }
+// let olaJoao = saudacoesFactory('Olá', 'João')
+// let tchauJoao = saudacoesFactory('Tchau', 'João')
+// olaJoao()
+// tchauJoao()
+
+
+// function ola(){
+//   let nome = 'João'
+//   return function(){
+//     console.log(`Olá, ${nome}`)
+//   }
+// }
+
+// let olaResult = ola()
+// olaResult()
+
+// function f(){
+//   let nome = 'João'
+//   function g(){
+//     console.log(nome)
+//   }
+//   g()
+// }
+// f()
+
+
+// let umaFuncao = function(){
+//   console.log('Fui armazenada em uma variável')
+// }
+// umaFuncao()
+
+// function f(funcao){
+//   return funcao() //está chamando a outra funcao
+// }
+
+
+// function g(){
+//   function outraFuncao(){
+//     console.log('Fui criada por g')
+//     function exibirA(){
+//       console.log("A")
+//       return () => console.log("B")
+//     }
+//     return exibirA()
+//   }
+//   return outraFuncao
+// }
+
+// f(g())()
+
+//faça funcionar e exibir a letra a
+//faça funcionar e exibir a letra b, mantendo todo o resto
+// g()()()
+
+// const gResult = g()
+// gResult()
+
+// f(function(){
+//   console.log("Estou sendo passada para f")
+//   return undefined
+// })
+
+
+
+// class Pessoa{
+//   public void andar(){
+
+//   }
+
+//   // var teste = andar;
+//   Runnable teste = () -> {}
+// }
 //let idade = 18
 //hoist: içamento
 //console.log(`Oi, ${nome}`)/
@@ -35,8 +129,8 @@
 
 // Aula de 07/08/2025
 // Coerção
-const n1 = 2;
-const n2 = '3';
+// const n1 = 2;
+// const n2 = '3';
 
 //coerção implícita de n1, concatenação acontece
 //const n3 = n1 + n2;
@@ -116,9 +210,9 @@ const n2 = '3';
 
 //hello("Pedro")
 
-function soma (a, b) {
- return a + b;
-}
+// function soma (a, b) {
+//  return a + b;
+// }
 
 //const res = soma (2, 3)
 
@@ -140,22 +234,22 @@ function soma (a, b) {
 // console.log(triplo(10))
 
 // Não é possível redefinir a função utilizando o arrow function
-const hello = () => console.log("Hello");
-hello();
+// const hello = () => console.log("Hello");
+// hello();
 
-const dobro = (valor) => valor * 2;
+// const dobro = (valor) => valor * 2;
 
-console.log(dobro(10));
+// console.log(dobro(10));
 
-const triplo = (valor) => {
- return valor * 3;
-};
+// const triplo = (valor) => {
+//  return valor * 3;
+// };
 
-console.log(triplo(10));
+// console.log(triplo(10));
 
-//const ehPar = (n) => {
-//return n % 2 === 0;
-//};
+// //const ehPar = (n) => {
+// //return n % 2 === 0;
+// //};
 
-const ehPar = (n) => n % 2 === 0;
-console.log(ehPar(10));
+// const ehPar = (n) => n % 2 === 0;
+// console.log(ehPar(10));
