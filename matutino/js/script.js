@@ -1,20 +1,73 @@
-let calculadora = {
-  //pode ser utilizada a construção com arrow function
-  somar: (a, b) => a + b,
-  //e com declaração de função comum também
-  subtrair: function (a, b) {
-  return a - b;
-  },
-  soma: 2,
+//depois que salvou o dobro, fazer a leitura do conteúdo do arquivo dobro.txt e calcular o triplo dele, salvando num arquivo chamado triplo.txt
+const fs = require('fs')
+const abrirArquivo = function(nomeArquivo){
+  const exibirConteudo = function(erro, conteudo){
+    if(erro){
+      console.log(`Deu erro: ${erro}`)
+    }
+    else{ 
+      console.log(`Conteúdo: ${conteudo.toString()}`)
+      const dobro = Number(conteudo.toString()) * 2
+      const finalizar = function(erro){
+        if(erro){
+          console.log(`Erro tentando salvar o dobro: ${erro}`)
+        }
+        else{
+          console.log("Salvou o dobro com sucesso")
+        }
+      }
+      fs.writeFile('dobro.txt', dobro.toString(), finalizar)
+    }
+  }
+  fs.readFile(nomeArquivo, exibirConteudo)
+  console.log('Continuando...')
+}
+abrirArquivo('arquivo.txt')
 
-};
+// function demorada(tempo){
+//   console.log(`demorada: ${tempo}`)
+//   const atualMaisTempo = new Date().getTime() + tempo
+//   while(new Date().getTime() <= atualMaisTempo);
+//   const d = 8 + 4
+//   return d
+// }
+// const a = 2 + 5
+// const b = 5 + 9
+// setTimeout(() => {
+//   const d = demorada(2000)
+//   console.log(`demorada(2000) terminou: ${d}`)
+// }, 2000)
+// setTimeout(() => {
+//   const d = demorada(1000)
+//   console.log(`demorada(1000) terminou: ${d}`)
+// }, 1000)
+// const e = 2 + a + b
+// console.log(`e: ${e}`)
+
+// const a = 2 + 7
+// const b = 5
+// console.log(a + b)
+
+// console.log('Eu primeiro')
+// console.log('Eu agora...')
+// console.log("Sempre a última...")
+// let calculadora = {
+//   //pode ser utilizada a construção com arrow function
+//   somar: (a, b) => a + b,
+//   //e com declaração de função comum também
+//   subtrair: function (a, b) {
+//   return a - b;
+//   },
+//   soma: 2,
+
+// };
   
-// As chamadas funcionam da mesma forma
-console.log(`2 + 3 = ${calculadora.somar(2, 3)}`);
+// // As chamadas funcionam da mesma forma
+// console.log(`2 + 3 = ${calculadora.somar(2, 3)}`);
 
-console.log(`2 - 3 = ${calculadora.subtrair(2, 3)}`);
+// console.log(`2 - 3 = ${calculadora.subtrair(2, 3)}`);
 
-console.log(calculadora.soma);
+// console.log(calculadora.soma);
 
 
 // let concessionaria = {
