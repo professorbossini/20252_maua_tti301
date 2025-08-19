@@ -1,30 +1,3 @@
-// Discussão da comparação de objetos e referências em javascript
-
-// console.log(1 == "1")
-
-// console.log([1] == [1])
-
-// console.log([1] == "1")
-
-// var a = [1]
-// var b = [1]
-
-// console.log(a == b)
-
-// var c = a
-
-// console.log(a == c)
-
-// console.log( a === c)
-
-// console.log([1] === [1])
-
-// console.log(a == c)
-
-// console.log([1] === [1])
-
-// console.log( a === c)
-
 // Vetores
 
 var v1 = [];
@@ -75,7 +48,32 @@ const soma = valores.reduce((ac, v) => ac + v);
 
 console.log(soma)
 
+// Discussão da comparação de objetos e referências em javascript
 
+// console.log(1 == "1")
+
+// console.log([1] == [1])
+
+// console.log([1] == "1")
+
+// var a = [1]
+// var b = [1]
+
+// console.log(a == b)
+
+// var c = a
+
+// console.log(a == c)
+
+// console.log( a === c)
+
+// console.log([1] === [1])
+
+// console.log(a == c)
+
+// console.log([1] === [1])
+
+// console.log( a === c)
 
 //comparação
 // console.log(1 == 1) //true
