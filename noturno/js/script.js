@@ -1,3 +1,52 @@
+// Vetores
+
+var v1 = [];
+
+console.log(v1.length);
+
+v1[0] = 3.4;
+
+console.log(v1.length);
+
+console.log(v1[100]);
+
+v1[1000] = "ab";
+
+console.log(v1.length);
+
+for (let i = 0; i < v1.length; i++) {
+  console.log(v1[i]);
+}
+
+const nomes = ["Ana Maria", "Antonio", "Rodrigo", "Alex", "Cristina"];
+
+const apenasComA = nomes.filter((n) => n.startsWith("A"));
+
+console.log("Apenas com A");
+console.log(apenasComA);
+
+const res = nomes.map((n) => n.charAt(0));
+
+console.log("Primeiras letras");
+console.log(res);
+
+const todoComecamCom = nomes.every((n) => n.startsWith("A"));
+
+console.log("Todos os nomes do vetor começam com A?");
+console.log(todoComecamCom);
+
+const todosFiltradosComecamComA = apenasComA.every((n) => n.startsWith("A"));
+
+console.log(
+  "A lista de nomes do vetor filtrados começando com A tem todos os itens começando com A?"
+);
+console.log(todosFiltradosComecamComA);
+
+const valores = [1, 2, 3, 4];
+const soma = valores.reduce((ac, v) => ac + v);
+
+console.log(soma);
+
 // Discussão da comparação de objetos e referências em javascript
 
 // console.log(1 == "1")
@@ -25,58 +74,6 @@
 
 // console.log( a === c)
 
-// Vetores
-
-var v1 = [];
-
-console.log(v1.length)
-
-v1[0] = 3.4;
-
-
-console.log(v1.length)
-
-console.log(v1[100])
-
-v1[1000] = "ab"
-
-console.log(v1.length)
-
-for (let i = 0; i < v1.length; i++) {
-    console.log(v1[i]);
-}
-
-const nomes = ["Ana Maria", "Antonio", "Rodrigo", "Alex", "Cristina"]
-
-const apenasComA = nomes.filter((n) => n.startsWith("A"))
-
-console.log("Apenas com A")
-console.log(apenasComA)
-
-const res = nomes.map((n) => n.charAt(0))
-
-console.log("Primeiras letras")
-console.log(res)
-
-const todoComecamCom = nomes.every((n) => n.startsWith("A"))
-
-console.log("Todos os nomes do vetor começam com A?")
-console.log(todoComecamCom)
-
-
-const todosFiltradosComecamComA = apenasComA.every((n) => n.startsWith("A"))
-
-console.log("A lista de nomes do vetor filtrados começando com A tem todos os itens começando com A?")
-console.log(todosFiltradosComecamComA)
-
-
-const valores = [1, 2, 3, 4];
-const soma = valores.reduce((ac, v) => ac + v);
-
-console.log(soma)
-
-
-
 //comparação
 // console.log(1 == 1) //true
 // console.log(1 == "1") //true
@@ -88,7 +85,6 @@ console.log(soma)
 // console.log(null == undefined) //true
 // console.log([] == false) //true
 // console.log([] == []) //false
-
 
 // //coerção
 // const n1 = 2
@@ -114,7 +110,6 @@ console.log(soma)
 //     console.log(`Parabéns, ${nome}. Você já pode dirigir.`)
 // }
 // console.log(`Até mais, ${nome}`)
-
 
 // //declarando constantes
 // const nome = "José"
