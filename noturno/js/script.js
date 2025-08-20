@@ -1,52 +1,202 @@
-// Vetores
+// escopo interno e externo
 
-var v1 = [];
+// function f(){
+//     let nome = 'João'
+//     function g(){
+//         console.log(nome)
+//     }
+//     g()
+// }
+// f()
 
-console.log(v1.length)
-
-v1[0] = 3.4;
-
-
-console.log(v1.length)
-
-console.log(v1[100])
-
-v1[1000] = "ab"
-
-console.log(v1.length)
-
-for (let i = 0; i < v1.length; i++) {
-    console.log(v1[i]);
+function ola(){
+    let nome = 'João'
+    return function(){
+        console.log('Olá ', nome)
+    }
 }
+
+olaResult = ola()
+olaResult()
+
+// // closure
+
+// //armazenando uma função em uma variável
+// let umaFuncao = function () {
+//     console.log('Fui armazenenada em uma variável')
+// }
+// umaFuncao()
+
+// //receber uma função como argumento
+// function teste(){
+//     console.log('eu sou um teste')
+// }
+// function f(funcao){
+//     funcao()
+// }
+// teste()
+// f(teste)
+// f(umaFuncao)
+// f(function (){
+//     console.log('Estou sendo passada para f')
+// })
+
+// //uma função pode retornar outra função
+// function g(){
+//     function outraFuncao(){
+//         console.log('Fui criada por g.')
+//     }
+//     return outraFuncao
+// }
+
+// gResult = g()
+// console.log(gResult)
+// gResult()
+// g()()
+
+// f(g)
+// f(g())
+//f(g()())
+//f(1)
+
+// //arrow functions
+// const hello = () => console.log('hello')
+// hello()
+
+// const dobro = (n) => n * 2
+// console.log(dobro(2))
+
+// const triplo = (n) => {
+//     return n * 3
+// }
+// console.log(triplo(4))
+
+// const ehPar = (n) => {
+//     //com várias linhas
+//     if(n%2===0){
+//         return true
+//     } else {
+//         return false
+//     }
+// }
+// console.log(ehPar(10))
+// console.log(ehPar(11))
+
+// const ehPar2 = (n) => n%2===0
+// console.log(ehPar2(10))
+// console.log(ehPar2(11))
+
+
+// // funções
+
+// function hello(){
+//     console.log('Oi')
+// }
+// hello()
+
+// function hello(nome){
+//     console.log(`Olá, ${nome}`)
+// }
+// hello('Pedro')
+
+// function soma(a, b){
+//     return a + b
+// }
+// res = soma(2, 3)
+// console.log(res)
+
+// console.log(soma(2, 4))
+
+// console.log(soma('2', '3'))
+
+// // funções anônimas
+// const dobro = function(n){
+//     return n * 2
+// }
+// console.log(dobro(3))
+
+// // valores default para parâmetros
+// const triplo = function(n=5){
+//     return 3*n
+// }
+// console.log(triplo(3))
+// console.log(triplo())
+
+// const quadruplo = function(n){
+//     return dobro(dobro(n))
+// }
+// console.log(quadruplo(4))
+
+// let quintuplo = triplo(triplo())
+// console.log(quintuplo)
+
+// const fatorial = function(n){
+//     if (n == 0){
+//         return 1
+//     } else {
+//         return n*fatorial(n-1)
+//     }
+// }
+// console.log('fatorial 5 =', fatorial(5))
+
+
+
+// const v10 = []
+// console.log(v10)
+// v10[0] = 1
+// v10[1] = 2
+// console.log(v10)
+// v10 = []
+
+// // Vetores
+
+// var v1 = [];
+
+// console.log(v1.length)
+
+// v1[0] = 3.4;
+
+
+// console.log(v1.length)
+
+// console.log(v1[100])
+
+// v1[1000] = "ab"
+
+// console.log(v1.length)
+
+// for (let i = 0; i < v1.length; i++) {
+//     console.log(v1[i]);
+// }
 
 const nomes = ["Ana Maria", "Antonio", "Rodrigo", "Alex", "Cristina"]
 
-const apenasComA = nomes.filter((n) => n.startsWith("A"))
+// const apenasComA = nomes.filter((n) => n.startsWith("A"))
 
-console.log("Apenas com A")
-console.log(apenasComA)
+// console.log("Apenas com A")
+// console.log(apenasComA)
 
-const res = nomes.map((n) => n.charAt(0))
+// const res = nomes.map((n) => n.charAt(0))
 
-console.log("Primeiras letras")
-console.log(res)
+// console.log("Primeiras letras")
+// console.log(res)
 
-const todoComecamCom = nomes.every((n) => n.startsWith("A"))
+// const todoComecamCom = nomes.every((n) => n.startsWith("A"))
 
-console.log("Todos os nomes do vetor começam com A?")
-console.log(todoComecamCom)
-
-
-const todosFiltradosComecamComA = apenasComA.every((n) => n.startsWith("A"))
-
-console.log("A lista de nomes do vetor filtrados começando com A tem todos os itens começando com A?")
-console.log(todosFiltradosComecamComA)
+// console.log("Todos os nomes do vetor começam com A?")
+// console.log(todoComecamCom)
 
 
-const valores = [1, 2, 3, 4];
-const soma = valores.reduce((ac, v) => ac + v);
+// const todosFiltradosComecamComA = apenasComA.every((n) => n.startsWith("A"))
 
-console.log(soma)
+// console.log("A lista de nomes do vetor filtrados começando com A tem todos os itens começando com A?")
+// console.log(todosFiltradosComecamComA)
+
+
+// const valores = [1, 2, 3, 4];
+// const soma = valores.reduce((ac, v) => ac + v);
+
+// console.log(soma)
 
 // Discussão da comparação de objetos e referências em javascript
 
