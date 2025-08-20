@@ -1,51 +1,199 @@
-// Vetores
+// //escopo interno e externo
+// function f(){
+//     let nome = 'João'
+//     function g(){
+//         console.log(nome)
+//     }
+//     g()
+// }
+// f()
 
-var v1 = [];
+//closure
+// function ola(){
+//     let nome = 'João'
+//     return function (){
+//         console.log(`Olá, ${nome}`)
+//     }
+// }
 
-console.log(v1.length);
+// olaResult = ola()
+// console.log(olaResult)
+// olaResult()
 
-v1[0] = 3.4;
+// function saudacaoFactory(saudacao, nome){
+//     return function (){
+//         console.log(saudacao + ', ' + nome)
+//     }
+// }
+// let olaJoao = saudacaoFactory('Olá', 'João')
+// let tchauMaria = saudacaoFactory('Tchau', 'Maria')
 
-console.log(v1.length);
+// olaJoao()
+// tchauMaria()
 
-console.log(v1[100]);
+function eAgora(){
+    let cont = 1
+    function f1 (){
+        console.log(cont)
+    }
+    cont++
+    function f2 (){
+        console.log(cont)
+    }
+    //JSON com duas funções
+    return {f1, f2}
 
-v1[1000] = "ab";
-
-console.log(v1.length);
-
-for (let i = 0; i < v1.length; i++) {
-  console.log(v1[i]);
 }
 
-const nomes = ["Ana Maria", "Antonio", "Rodrigo", "Alex", "Cristina"];
+let eAgoraResult = eAgora()
 
-const apenasComA = nomes.filter((n) => n.startsWith("A"));
+eAgoraResult.f1()
+eAgoraResult.f2()
 
-console.log("Apenas com A");
-console.log(apenasComA);
+// //closure
+// //armazenando uma funçao em uma variável
+// let umaFuncao = function(){
+//     console.log("Fui armazenada em uma variável")
+// }
+// umaFuncao()
+// function triplo(n=5){
+//     console.log(3 * n)
+// }
+// //função que recebe e executa outra função
+// function f(funcao){
+//     funcao()
+// }
+// f(umaFuncao)
+// f(() => console.log(3*2))
+// f(function () {
+//     console.log('Fui criada nos parênteses de f')
+// })
+// f(triplo)
+// //criar uma função dentro e outra e retornar esta função
+// function g(){
+//     function outraFuncao(){
+//         console.log("Fui criada em g")
+//     }
+//     return outraFuncao
+// }
+// gResult = g()
+// console.log(gResult)
+// gResult()
 
-const res = nomes.map((n) => n.charAt(0));
+// g()()
 
-console.log("Primeiras letras");
-console.log(res);
+// f(g())
 
-const todoComecamCom = nomes.every((n) => n.startsWith("A"));
 
-console.log("Todos os nomes do vetor começam com A?");
-console.log(todoComecamCom);
 
-const todosFiltradosComecamComA = apenasComA.every((n) => n.startsWith("A"));
 
-console.log(
-  "A lista de nomes do vetor filtrados começando com A tem todos os itens começando com A?"
-);
-console.log(todosFiltradosComecamComA);
+// // arrow functions
+// const hello = () => console.log('Hello')
+// hello()
+// const dobro = (n) => n * 2
+// console.log(dobro(10))
+// const triplo = (n) => {
+//     return n * 3
+// }
+// console.log(triplo(4))
 
-const valores = [1, 2, 3, 4];
-const soma = valores.reduce((ac, v) => ac + v);
+// //funções anônimas
+// const dobro = function (n) {
+//     return n * 2
+// }
+// console.log(dobro(3))
 
-console.log(soma);
+// //ter valores default para os parâmetros
+// const triplo = function (n=5){
+//     return 3*n
+// }
+// console.log(triplo(3))
+// console.log(triplo())
+
+// const quadruplo = function(n){
+//     return 2 * dobro(n)
+// }
+
+// console.log(quadruplo(4))
+
+
+
+
+
+
+// //funções
+// function hello(){
+//     console.log('Olá')
+// }
+// hello()
+
+// function hello(nome){
+//     console.log(`Olá, ${nome}`)
+// }
+// hello('João')
+
+// function soma(a, b){
+//     return a + b
+// }
+// res = soma(2, 3)
+// console.log(res)
+// console.log(soma(5, 7))
+// console.log(soma('2', '3'))
+
+// const v1 = []
+// console.log(v1)
+// v1[0] = 1
+// v1[1] = 2
+// console.log(v1)
+// v1 = []
+// Vetores
+
+// var v1 = [];
+
+// console.log(v1.length);
+
+// v1[0] = 3.4;
+
+// console.log(v1.length);
+
+// console.log(v1[100]);
+
+// v1[1000] = "ab";
+
+// console.log(v1.length);
+
+// for (let i = 0; i < v1.length; i++) {
+//   console.log(v1[i]);
+// }
+
+// const nomes = ["Ana Maria", "Antonio", "Rodrigo", "Alex", "Cristina"];
+
+// const apenasComA = nomes.filter((n) => n.startsWith("A"));
+
+// console.log("Apenas com A");
+// console.log(apenasComA);
+
+// const res = nomes.map((n) => n.charAt(0));
+
+// console.log("Primeiras letras");
+// console.log(res);
+
+// const todoComecamCom = nomes.every((n) => n.startsWith("A"));
+
+// console.log("Todos os nomes do vetor começam com A?");
+// console.log(todoComecamCom);
+
+// const todosFiltradosComecamComA = apenasComA.every((n) => n.startsWith("A"));
+
+// console.log(
+//   "A lista de nomes do vetor filtrados começando com A tem todos os itens começando com A?"
+// );
+// console.log(todosFiltradosComecamComA);
+
+// const valores = [1, 2, 3, 4];
+// const soma = valores.reduce((ac, v) => ac + v);
+
+// console.log(soma);
 
 // Discussão da comparação de objetos e referências em javascript
 
