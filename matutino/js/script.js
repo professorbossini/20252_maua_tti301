@@ -1,20 +1,232 @@
-let calculadora = {
-  //pode ser utilizada a construção com arrow function
-  somar: (a, b) => a + b,
-  //e com declaração de função comum também
-  subtrair: function (a, b) {
-  return a - b;
-  },
-  soma: 2,
+//depois que salvou o dobro, fazer a leitura do conteúdo do arquivo dobro.txt e calcular o triplo dele, salvando num arquivo chamado triplo.txt
+const fs = require('fs')
+const abrirArquivo = function(nomeArquivo){
+  const exibirConteudo = function(erro, conteudo){
+    if(erro){
+      console.log(`Deu erro: ${erro}`)
+    }
+    else{ 
+      console.log(`Conteúdo: ${conteudo.toString()}`)
+      const dobro = Number(conteudo.toString()) * 2
+      const finalizar = function(erro){
+        if(erro){
+          console.log(`Erro tentando salvar o dobro: ${erro}`)
+        }
+        else{
+          console.log("Salvou o dobro com sucesso")
+          
+        }
+      }
+      fs.writeFile('dobro.txt', dobro.toString(), finalizar)
+    }
+  }
+  fs.readFile(nomeArquivo, exibirConteudo)
+  console.log('Continuando...')
+}
 
-};
+
+ abrirArquivo('arquivo.txt')
+
+
+
+// const fs = require('fs')
+
+// const abrirArquivo = function (nomeArquivo) {
+//   const exibirConteudo = function (erro, conteudo) {
+//     if (erro) {
+//       console.log(`Deu erro ao ler o arquivo inicial: ${erro}`)
+//     }
+//     else {
+//       console.log(`Conteúdo do arquivo.txt: ${conteudo.toString()}`)
+//       const dobro = Number(conteudo.toString()) * 2
+
+//       const finalizar = function (erro) {
+//         if (erro) {
+//           console.log(`Erro tentando salvar o dobro: ${erro}`)
+//         }
+//         else {
+//           console.log("Salvou o dobro com sucesso")
+//           // Precisamos tratar a abertura no caso do sucesso de salvar o arquivo dobro.txt
+//           // É esse encadeamento que vai tornando cada vez mais críptico nosso código...
+//           // --- INÍCIO DA NOVA LÓGICA PARA LER O dobro.txt, calcular o triplo e salvar o resultado---
+//           // Agora, lemos o arquivo 'dobro.txt' que acabamos de salvar.
+//           fs.readFile('dobro.txt', (erroLeituraDobro, conteudoDobro) => {
+//             if (erroLeituraDobro) {
+//               console.log(`Erro ao ler o arquivo dobro.txt: ${erroLeituraDobro}`)
+//             } else {
+//               console.log(`Conteúdo do dobro.txt: ${conteudoDobro.toString()}`)
+//               const triplo = Number(conteudoDobro.toString()) * 3
+
+//               // Callback para a escrita do arquivo 'triplo.txt'
+//               const finalizarTriplo = function (erroEscritaTriplo) {
+//                 if (erroEscritaTriplo) {
+//                   console.log(`Erro tentando salvar o triplo: ${erroEscritaTriplo}`)
+//                 } else {
+//                   console.log("Salvou o triplo com sucesso")
+//                 }
+//               }
+
+//               // Escreve o resultado no arquivo 'triplo.txt'
+//               fs.writeFile('triplo.txt', triplo.toString(), finalizarTriplo)
+//             }
+//           })
+//           // --- FIM DA NOVA LÓGICA ---
+//         }
+//       }
+
+//       fs.writeFile('dobro.txt', dobro.toString(), finalizar)
+//     }
+//   }
+
+//   fs.readFile(nomeArquivo, exibirConteudo)
+//   console.log('Continuando...') // Este log ainda executa primeiro
+// }
+
+
+// abrirArquivo('arquivo.txt')
+
+
+
+// function calculoDemorado(numero) {
+//    return new Promise(function (resolve, reject) {
+//      let res = 0;
+//      for (let i = 1; i <= numero; i++) {
+//        res += i;
+      
+//     }
+//      resolve(res);
+    
+//   });
   
-// As chamadas funcionam da mesma forma
-console.log(`2 + 3 = ${calculadora.somar(2, 3)}`);
+// }
+//  calculoDemorado(1000).then((resultado) => {
+//    console.log(resultado)
 
-console.log(`2 - 3 = ${calculadora.subtrair(2, 3)}`);
+// })
 
-console.log(calculadora.soma);
+// Leitura do arquivo utilizando Promises
+
+// Importa a versão do 'fs' que retorna Promises usando asinc/await
+// const fs = require('fs').promises;
+
+// async function calcularMultiplos(nomeArquivo) {
+//   try {
+//     console.log('Iniciando o processo...');
+
+//     // 1. Ler o arquivo original
+//     const conteudoInicial = await fs.readFile(nomeArquivo);
+//     console.log(`Conteúdo do ${nomeArquivo}: ${conteudoInicial.toString()}`);
+
+//     // 2. Calcular e salvar o dobro
+//     const dobro = Number(conteudoInicial.toString()) * 2;
+//     await fs.writeFile('dobro.txt', dobro.toString());
+//     console.log('Salvou o dobro com sucesso');
+
+//     // 3. Ler o arquivo do dobro
+//     const conteudoDobro = await fs.readFile('dobro.txt');
+//     console.log(`Conteúdo do dobro.txt: ${conteudoDobro.toString()}`);
+
+//     // 4. Calcular e salvar o triplo
+//     const triplo = Number(conteudoDobro.toString()) * 3;
+//     await fs.writeFile('triplo.txt', triplo.toString());
+//     console.log('Salvou o triplo com sucesso');
+
+//   } catch (erro) {
+//     console.log(`Ocorreu um erro geral no processo: ${erro}`);
+//   }
+// }
+
+// calcularMultiplos('arquivo.txt');
+
+
+// function fatorial(n) {
+//    if (n < 0) return Promise.reject("Valor não pode ser negativo");
+//    let res = 1;
+//    for (let i = 2; i <= n; i++) res *= i;
+//    return Promise.resolve(res); 
+// }
+
+
+
+// function chamadaComThenCatch() {
+//    fatorial(5)
+//    .then((res) => console.log(res))
+//    .catch((res) => console.log(res));
+  
+//    fatorial(-1)
+//    .then((res) => console.log(res))
+//    .catch((res) => console.log(res));
+  
+// }
+// chamadaComThenCatch();
+
+
+
+
+
+
+
+// async function chamadaComAwait() {
+//    //note que não há paralelismo implícito
+//    //somente haverá paralelismo se a função chamada utilizar explicitamente
+//    try {
+//      const f1 = await fatorial(5);
+//      console.log(f1);
+//      const f2 = await fatorial(-1);
+//      console.log(f2);
+//     } catch (erro) {
+//       console.log(erro);
+//    }
+// }
+
+// await chamadaComAwait();
+
+
+
+// function demorada(tempo){
+//   console.log(`demorada: ${tempo}`)
+//   const atualMaisTempo = new Date().getTime() + tempo
+//   while(new Date().getTime() <= atualMaisTempo);
+//   const d = 8 + 4
+//   return d
+// }
+// const a = 2 + 5
+// const b = 5 + 9
+// setTimeout(() => {
+//   const d = demorada(2000)
+//   console.log(`demorada(2000) terminou: ${d}`)
+// }, 2000)
+// setTimeout(() => {
+//   const d = demorada(1000)
+//   console.log(`demorada(1000) terminou: ${d}`)
+// }, 1000)
+// const e = 2 + a + b
+// console.log(`e: ${e}`)
+
+// const a = 2 + 7
+// const b = 5
+// console.log(a + b)
+
+// console.log('Eu primeiro')
+// console.log('Eu agora...')
+// console.log("Sempre a última...")
+// let calculadora = {
+//   //pode ser utilizada a construção com arrow function
+//   somar: (a, b) => a + b,
+//   //e com declaração de função comum também
+//   subtrair: function (a, b) {
+//   return a - b;
+//   },
+//   soma: 2,
+
+// };
+  
+// // As chamadas funcionam da mesma forma
+// console.log(`2 + 3 = ${calculadora.somar(2, 3)}`);
+
+// console.log(`2 - 3 = ${calculadora.subtrair(2, 3)}`);
+
+// console.log(calculadora.soma);
 
 
 // let concessionaria = {
