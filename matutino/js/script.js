@@ -1,31 +1,194 @@
-//depois que salvou o dobro, fazer a leitura do conteúdo do arquivo dobro.txt e calcular o triplo dele, salvando num arquivo chamado triplo.txt
-const fs = require('fs')
-const abrirArquivo = function(nomeArquivo){
-  const exibirConteudo = function(erro, conteudo){
-    if(erro){
-      console.log(`Deu erro: ${erro}`)
+const axios = require("axios");
+ //sua chave aqui
+ const appid = "sua_chave_aqui";
+ //cidade desejada
+ const q = "Itu";
+ //unidade de medida de temperatura
+ const units = "metric";
+ //idioma
+ const lang = "pt_BR";
+ //quantidade de resultados
+ const cnt = "10"
+ const url = `https://api.openweathermap.org/data/2.5/forecast?q=${q}&units=${units}&appid=${appid}&lang=${lang}&cnt=${cnt}`;
+
+axios
+  .get(url)
+  .then((res) => {
+    console.log(res);
+    return res.data;
+  })
+  .then((res) => {
+    console.log(res.cnt);
+    return res;
+  })
+  .then((res) => {
+    console.log("aqui", res);
+    return res['list'];
+  })
+  .then((res) => {
+    for (let previsao of res) {
+      console.log(`
+        ${new Date(+previsao.dt * 1000).toLocaleString()},
+        ${'Min: ' + previsao.main.temp_min}\u00B0C,
+        ${'Max: ' + previsao.main.temp_max}\u00B0C,
+        ${'Hum: ' + previsao.main.humidity}%,
+        ${previsao.weather[0].description}
+
+        `);
     }
-    else{ 
-      console.log(`Conteúdo: ${conteudo.toString()}`)
-      const dobro = Number(conteudo.toString()) * 2
-      const finalizar = function(erro){
-        if(erro){
-          console.log(`Erro tentando salvar o dobro: ${erro}`)
-        }
-        else{
-          console.log("Salvou o dobro com sucesso")
-          
-        }
-      }
-      fs.writeFile('dobro.txt', dobro.toString(), finalizar)
-    }
-  }
-  fs.readFile(nomeArquivo, exibirConteudo)
-  console.log('Continuando...')
-}
+    return res;
+  })
+  .then((res) => {
+    const lista = res.filter(r => r.main.feels_like >= 30);
+    console.log (`${lista.length} previsões têm
+      percepção humana de temperatura acima de 30
+      graus`)
+      
+  });
 
 
- abrirArquivo('arquivo.txt')
+
+
+// // Leitura do arquivo utilizando Promises
+
+// // Importa a versão do 'fs' que retorna Promises usando asinc/await
+// const fs = require('fs').promises;
+
+// async function calcularMultiplos(nomeArquivo) {
+//   try {
+//     console.log('Iniciando o processo...');
+
+//     // 1. Ler o arquivo original
+//     const conteudoInicial = await fs.readFile(nomeArquivo);
+//     console.log(`Conteúdo do ${nomeArquivo}: ${conteudoInicial.toString()}`);
+
+//     // 2. Calcular e salvar o dobro
+//     const dobro = Number(conteudoInicial.toString()) * 2;
+//     await fs.writeFile('dobro.txt', dobro.toString());
+//     console.log('Salvou o dobro com sucesso');
+
+//     // 3. Ler o arquivo do dobro
+//     const conteudoDobro = await fs.readFile('dobro.txt');
+//     console.log(`Conteúdo do dobro.txt: ${conteudoDobro.toString()}`);
+
+//     // 4. Calcular e salvar o triplo
+//     const triplo = Number(conteudoDobro.toString()) * 3;
+//     await fs.writeFile('triplo.txt', triplo.toString());
+//     console.log('Salvou o triplo com sucesso');
+
+//   } catch (erro) {
+//     console.log(`Ocorreu um erro geral no processo: ${erro}`);
+//   }
+// }
+
+// calcularMultiplos('arquivo.txt');
+
+
+
+
+
+
+// function fatorial(n) {
+//   if (n < 0) return Promise.reject("Valor não pode ser negativo");
+//     let res = 1;
+//     for (let i = 2; i <= n; i++) res *= i;
+//       return Promise.resolve(res);
+// }
+
+// async function chamadaComAwait() {
+//    //note que não há paralelismo implícito
+//    //somente haverá paralelismo se a função chamada utilizar explicitamente
+//    try {
+//     const f1 = await fatorial(5);
+//     console.log(f1);
+ 
+//     const f2 = await fatorial(-1);
+//     console.log(f2);
+ 
+//    } catch (erro) {
+//     console.log(erro);
+    
+//    }
+// }
+
+// chamadaComAwait();
+
+
+// function chamadaComThenCatch() {
+//    fatorial(5)
+//    .then((res) => console.log(res))
+//    .catch((res) => console.log(res));
+  
+//    fatorial(-1)
+//    .then((res) => console.log(res))
+//    .catch((res) => console.log(res));
+//    }
+// console.log("antes");   
+// chamadaComThenCatch();
+// console.log("depois");   
+
+
+
+// async function hello(nome) {
+//   return "Oi, " + nome;
+// }
+// const boasVindas = hello("João");
+// console.log(boasVindas);
+// boasVindas.then((res) => console.log(res));
+
+
+
+// function calculoRapidinho(numero) {
+//    return numero >= 0
+//   ? Promise.resolve((numero * (numero + 1)) / 2)
+//   : Promise.reject("Somente valores positivos, por favor");
+//   }
+  
+// calculoRapidinho(10)
+//   .then((resultado) => {
+//   console.log(resultado);
+// })
+//   .catch((err) => {
+//   console.log(err);
+//   });
+// calculoRapidinho(-1)
+//   .then((resultado) => {
+//   console.log(resultado);
+// })
+//   .catch((err) => {
+//   console.log(err);
+//   });
+// console.log("esperando...");
+
+
+
+// function calculoRapidinho (numero){
+//   return Promise.resolve((numero * (numero + 1)) / 2);
+//   }
+//   calculoRapidinho (10).then(resultado =>{
+//   console.log (resultado)
+//   })
+//   //Executa primeiro, mesmo que a promise já esteja fullfilled
+//   console.log('Esperando...')
+  
+
+
+// function calculoDemorado(numero) {
+//    return new Promise(function (resolve, reject) {
+//      let res = 0;
+//      for (let i = 1; i <= numero; i++) {
+//        res += i;
+      
+//     }
+//      resolve(res);
+    
+//   });
+  
+// }
+//  calculoDemorado("der").then((resultado) => {
+//    console.log(resultado)
+// })
+
 
 
 
@@ -51,7 +214,7 @@ const abrirArquivo = function(nomeArquivo){
 //           // --- INÍCIO DA NOVA LÓGICA PARA LER O dobro.txt, calcular o triplo e salvar o resultado---
 //           // Agora, lemos o arquivo 'dobro.txt' que acabamos de salvar.
 //           fs.readFile('dobro.txt', (erroLeituraDobro, conteudoDobro) => {
-//             if (erroLeituraDobro) {
+//             if (erroLeituraDobro) { 
 //               console.log(`Erro ao ler o arquivo dobro.txt: ${erroLeituraDobro}`)
 //             } else {
 //               console.log(`Conteúdo do dobro.txt: ${conteudoDobro.toString()}`)
@@ -87,22 +250,42 @@ const abrirArquivo = function(nomeArquivo){
 
 
 
-// function calculoDemorado(numero) {
-//    return new Promise(function (resolve, reject) {
-//      let res = 0;
-//      for (let i = 1; i <= numero; i++) {
-//        res += i;
-      
-//     }
-//      resolve(res);
-    
-//   });
-  
-// }
-//  calculoDemorado(1000).then((resultado) => {
-//    console.log(resultado)
 
-// })
+
+//depois que salvou o dobro, fazer a leitura do conteúdo do arquivo dobro.txt e calcular o triplo dele, salvando num arquivo chamado triplo.txt
+// const fs = require('fs')
+// const abrirArquivo = function(nomeArquivo){
+//   const exibirConteudo = function(erro, conteudo){
+//     if(erro){
+//       console.log(`Deu erro: ${erro}`)
+//     }
+//     else{ 
+//       console.log(`Conteúdo: ${conteudo.toString()}`)
+//       const dobro = Number(conteudo.toString()) * 2
+//       const finalizar = function(erro){
+//         if(erro){
+//           console.log(`Erro tentando salvar o dobro: ${erro}`)
+//         }
+//         else{
+//           console.log("Salvou o dobro com sucesso")
+          
+//         }
+//       }
+//       fs.writeFile('dobro.txt', dobro.toString(), finalizar)
+//     }
+//   }
+//   fs.readFile(nomeArquivo, exibirConteudo)
+//   console.log('Continuando...')
+// }
+
+
+//  abrirArquivo('arquivo.txt')
+
+
+
+
+
+
 
 // Leitura do arquivo utilizando Promises
 
