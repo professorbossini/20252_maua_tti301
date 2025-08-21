@@ -1,6 +1,6 @@
 const axios = require("axios");
  //sua chave aqui
- const appid = "24a68bec87be9010abbd4637c219c94f";
+ const appid = "coloque_sua_chave_aqui";
  //cidade desejada
  const q = "Itu";
  //unidade de medida de temperatura
