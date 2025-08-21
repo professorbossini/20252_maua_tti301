@@ -1,20 +1,503 @@
-function eAgora(){
-  let cont = 1
-  function f1(){
-    console.log(cont)
-  }
-  cont++
-  function f2(){
-    console.log(cont)
-  }
-  cont++
-  return {f1, f2}
-  cont++
-}
+const axios = require("axios");
+ //sua chave aqui
+ const appid = "sua_chave_aqui";
+ //cidade desejada
+ const q = "Itu";
+ //unidade de medida de temperatura
+ const units = "metric";
+ //idioma
+ const lang = "pt_BR";
+ //quantidade de resultados
+ const cnt = "10"
+ const url = `https://api.openweathermap.org/data/2.5/forecast?q=${q}&units=${units}&appid=${appid}&lang=${lang}&cnt=${cnt}`;
 
-let eAgoraResult = eAgora()
-eAgoraResult.f1()
-eAgoraResult.f2()
+axios
+  .get(url)
+  .then((res) => {
+    console.log(res);
+    return res.data;
+  })
+  .then((res) => {
+    console.log(res.cnt);
+    return res;
+  })
+  .then((res) => {
+    console.log("aqui", res);
+    return res['list'];
+  })
+  .then((res) => {
+    for (let previsao of res) {
+      console.log(`
+        ${new Date(+previsao.dt * 1000).toLocaleString()},
+        ${'Min: ' + previsao.main.temp_min}\u00B0C,
+        ${'Max: ' + previsao.main.temp_max}\u00B0C,
+        ${'Hum: ' + previsao.main.humidity}%,
+        ${previsao.weather[0].description}
+
+        `);
+    }
+    return res;
+  })
+  .then((res) => {
+    const lista = res.filter(r => r.main.feels_like >= 30);
+    console.log (`${lista.length} previsões têm
+      percepção humana de temperatura acima de 30
+      graus`)
+      
+  });
+
+
+
+
+// // Leitura do arquivo utilizando Promises
+
+// // Importa a versão do 'fs' que retorna Promises usando asinc/await
+// const fs = require('fs').promises;
+
+// async function calcularMultiplos(nomeArquivo) {
+//   try {
+//     console.log('Iniciando o processo...');
+
+//     // 1. Ler o arquivo original
+//     const conteudoInicial = await fs.readFile(nomeArquivo);
+//     console.log(`Conteúdo do ${nomeArquivo}: ${conteudoInicial.toString()}`);
+
+//     // 2. Calcular e salvar o dobro
+//     const dobro = Number(conteudoInicial.toString()) * 2;
+//     await fs.writeFile('dobro.txt', dobro.toString());
+//     console.log('Salvou o dobro com sucesso');
+
+//     // 3. Ler o arquivo do dobro
+//     const conteudoDobro = await fs.readFile('dobro.txt');
+//     console.log(`Conteúdo do dobro.txt: ${conteudoDobro.toString()}`);
+
+//     // 4. Calcular e salvar o triplo
+//     const triplo = Number(conteudoDobro.toString()) * 3;
+//     await fs.writeFile('triplo.txt', triplo.toString());
+//     console.log('Salvou o triplo com sucesso');
+
+//   } catch (erro) {
+//     console.log(`Ocorreu um erro geral no processo: ${erro}`);
+//   }
+// }
+
+// calcularMultiplos('arquivo.txt');
+
+
+
+
+
+
+// function fatorial(n) {
+//   if (n < 0) return Promise.reject("Valor não pode ser negativo");
+//     let res = 1;
+//     for (let i = 2; i <= n; i++) res *= i;
+//       return Promise.resolve(res);
+// }
+
+// async function chamadaComAwait() {
+//    //note que não há paralelismo implícito
+//    //somente haverá paralelismo se a função chamada utilizar explicitamente
+//    try {
+//     const f1 = await fatorial(5);
+//     console.log(f1);
+ 
+//     const f2 = await fatorial(-1);
+//     console.log(f2);
+ 
+//    } catch (erro) {
+//     console.log(erro);
+    
+//    }
+// }
+
+// chamadaComAwait();
+
+
+// function chamadaComThenCatch() {
+//    fatorial(5)
+//    .then((res) => console.log(res))
+//    .catch((res) => console.log(res));
+  
+//    fatorial(-1)
+//    .then((res) => console.log(res))
+//    .catch((res) => console.log(res));
+//    }
+// console.log("antes");   
+// chamadaComThenCatch();
+// console.log("depois");   
+
+
+
+// async function hello(nome) {
+//   return "Oi, " + nome;
+// }
+// const boasVindas = hello("João");
+// console.log(boasVindas);
+// boasVindas.then((res) => console.log(res));
+
+
+
+// function calculoRapidinho(numero) {
+//    return numero >= 0
+//   ? Promise.resolve((numero * (numero + 1)) / 2)
+//   : Promise.reject("Somente valores positivos, por favor");
+//   }
+  
+// calculoRapidinho(10)
+//   .then((resultado) => {
+//   console.log(resultado);
+// })
+//   .catch((err) => {
+//   console.log(err);
+//   });
+// calculoRapidinho(-1)
+//   .then((resultado) => {
+//   console.log(resultado);
+// })
+//   .catch((err) => {
+//   console.log(err);
+//   });
+// console.log("esperando...");
+
+
+
+// function calculoRapidinho (numero){
+//   return Promise.resolve((numero * (numero + 1)) / 2);
+//   }
+//   calculoRapidinho (10).then(resultado =>{
+//   console.log (resultado)
+//   })
+//   //Executa primeiro, mesmo que a promise já esteja fullfilled
+//   console.log('Esperando...')
+  
+
+
+// function calculoDemorado(numero) {
+//    return new Promise(function (resolve, reject) {
+//      let res = 0;
+//      for (let i = 1; i <= numero; i++) {
+//        res += i;
+      
+//     }
+//      resolve(res);
+    
+//   });
+  
+// }
+//  calculoDemorado("der").then((resultado) => {
+//    console.log(resultado)
+// })
+
+
+
+
+// const fs = require('fs')
+
+// const abrirArquivo = function (nomeArquivo) {
+//   const exibirConteudo = function (erro, conteudo) {
+//     if (erro) {
+//       console.log(`Deu erro ao ler o arquivo inicial: ${erro}`)
+//     }
+//     else {
+//       console.log(`Conteúdo do arquivo.txt: ${conteudo.toString()}`)
+//       const dobro = Number(conteudo.toString()) * 2
+
+//       const finalizar = function (erro) {
+//         if (erro) {
+//           console.log(`Erro tentando salvar o dobro: ${erro}`)
+//         }
+//         else {
+//           console.log("Salvou o dobro com sucesso")
+//           // Precisamos tratar a abertura no caso do sucesso de salvar o arquivo dobro.txt
+//           // É esse encadeamento que vai tornando cada vez mais críptico nosso código...
+//           // --- INÍCIO DA NOVA LÓGICA PARA LER O dobro.txt, calcular o triplo e salvar o resultado---
+//           // Agora, lemos o arquivo 'dobro.txt' que acabamos de salvar.
+//           fs.readFile('dobro.txt', (erroLeituraDobro, conteudoDobro) => {
+//             if (erroLeituraDobro) { 
+//               console.log(`Erro ao ler o arquivo dobro.txt: ${erroLeituraDobro}`)
+//             } else {
+//               console.log(`Conteúdo do dobro.txt: ${conteudoDobro.toString()}`)
+//               const triplo = Number(conteudoDobro.toString()) * 3
+
+//               // Callback para a escrita do arquivo 'triplo.txt'
+//               const finalizarTriplo = function (erroEscritaTriplo) {
+//                 if (erroEscritaTriplo) {
+//                   console.log(`Erro tentando salvar o triplo: ${erroEscritaTriplo}`)
+//                 } else {
+//                   console.log("Salvou o triplo com sucesso")
+//                 }
+//               }
+
+//               // Escreve o resultado no arquivo 'triplo.txt'
+//               fs.writeFile('triplo.txt', triplo.toString(), finalizarTriplo)
+//             }
+//           })
+//           // --- FIM DA NOVA LÓGICA ---
+//         }
+//       }
+
+//       fs.writeFile('dobro.txt', dobro.toString(), finalizar)
+//     }
+//   }
+
+//   fs.readFile(nomeArquivo, exibirConteudo)
+//   console.log('Continuando...') // Este log ainda executa primeiro
+// }
+
+
+// abrirArquivo('arquivo.txt')
+
+
+
+
+
+//depois que salvou o dobro, fazer a leitura do conteúdo do arquivo dobro.txt e calcular o triplo dele, salvando num arquivo chamado triplo.txt
+// const fs = require('fs')
+// const abrirArquivo = function(nomeArquivo){
+//   const exibirConteudo = function(erro, conteudo){
+//     if(erro){
+//       console.log(`Deu erro: ${erro}`)
+//     }
+//     else{ 
+//       console.log(`Conteúdo: ${conteudo.toString()}`)
+//       const dobro = Number(conteudo.toString()) * 2
+//       const finalizar = function(erro){
+//         if(erro){
+//           console.log(`Erro tentando salvar o dobro: ${erro}`)
+//         }
+//         else{
+//           console.log("Salvou o dobro com sucesso")
+          
+//         }
+//       }
+//       fs.writeFile('dobro.txt', dobro.toString(), finalizar)
+//     }
+//   }
+//   fs.readFile(nomeArquivo, exibirConteudo)
+//   console.log('Continuando...')
+// }
+
+
+//  abrirArquivo('arquivo.txt')
+
+
+
+
+
+
+
+// Leitura do arquivo utilizando Promises
+
+// Importa a versão do 'fs' que retorna Promises usando asinc/await
+// const fs = require('fs').promises;
+
+// async function calcularMultiplos(nomeArquivo) {
+//   try {
+//     console.log('Iniciando o processo...');
+
+//     // 1. Ler o arquivo original
+//     const conteudoInicial = await fs.readFile(nomeArquivo);
+//     console.log(`Conteúdo do ${nomeArquivo}: ${conteudoInicial.toString()}`);
+
+//     // 2. Calcular e salvar o dobro
+//     const dobro = Number(conteudoInicial.toString()) * 2;
+//     await fs.writeFile('dobro.txt', dobro.toString());
+//     console.log('Salvou o dobro com sucesso');
+
+//     // 3. Ler o arquivo do dobro
+//     const conteudoDobro = await fs.readFile('dobro.txt');
+//     console.log(`Conteúdo do dobro.txt: ${conteudoDobro.toString()}`);
+
+//     // 4. Calcular e salvar o triplo
+//     const triplo = Number(conteudoDobro.toString()) * 3;
+//     await fs.writeFile('triplo.txt', triplo.toString());
+//     console.log('Salvou o triplo com sucesso');
+
+//   } catch (erro) {
+//     console.log(`Ocorreu um erro geral no processo: ${erro}`);
+//   }
+// }
+
+// calcularMultiplos('arquivo.txt');
+
+
+// function fatorial(n) {
+//    if (n < 0) return Promise.reject("Valor não pode ser negativo");
+//    let res = 1;
+//    for (let i = 2; i <= n; i++) res *= i;
+//    return Promise.resolve(res); 
+// }
+
+
+
+// function chamadaComThenCatch() {
+//    fatorial(5)
+//    .then((res) => console.log(res))
+//    .catch((res) => console.log(res));
+  
+//    fatorial(-1)
+//    .then((res) => console.log(res))
+//    .catch((res) => console.log(res));
+  
+// }
+// chamadaComThenCatch();
+
+
+
+
+
+
+
+// async function chamadaComAwait() {
+//    //note que não há paralelismo implícito
+//    //somente haverá paralelismo se a função chamada utilizar explicitamente
+//    try {
+//      const f1 = await fatorial(5);
+//      console.log(f1);
+//      const f2 = await fatorial(-1);
+//      console.log(f2);
+//     } catch (erro) {
+//       console.log(erro);
+//    }
+// }
+
+// await chamadaComAwait();
+
+
+
+// function demorada(tempo){
+//   console.log(`demorada: ${tempo}`)
+//   const atualMaisTempo = new Date().getTime() + tempo
+//   while(new Date().getTime() <= atualMaisTempo);
+//   const d = 8 + 4
+//   return d
+// }
+// const a = 2 + 5
+// const b = 5 + 9
+// setTimeout(() => {
+//   const d = demorada(2000)
+//   console.log(`demorada(2000) terminou: ${d}`)
+// }, 2000)
+// setTimeout(() => {
+//   const d = demorada(1000)
+//   console.log(`demorada(1000) terminou: ${d}`)
+// }, 1000)
+// const e = 2 + a + b
+// console.log(`e: ${e}`)
+
+// const a = 2 + 7
+// const b = 5
+// console.log(a + b)
+
+// console.log('Eu primeiro')
+// console.log('Eu agora...')
+// console.log("Sempre a última...")
+// let calculadora = {
+//   //pode ser utilizada a construção com arrow function
+//   somar: (a, b) => a + b,
+//   //e com declaração de função comum também
+//   subtrair: function (a, b) {
+//   return a - b;
+//   },
+//   soma: 2,
+
+// };
+  
+// // As chamadas funcionam da mesma forma
+// console.log(`2 + 3 = ${calculadora.somar(2, 3)}`);
+
+// console.log(`2 - 3 = ${calculadora.subtrair(2, 3)}`);
+
+// console.log(calculadora.soma);
+
+
+// let concessionaria = {
+//    cnpj: "00011122210001-45",
+//    endereco: {
+//     logradouro: "Rua A",
+//     numero: 10,
+//     bairro: "Vila J",
+//    },
+//    veiculos: [
+//    {
+//     marca: "Ford",
+//     modelo: "Ecosport",
+//     anoDeFabricacao: 2018,
+//    },
+//    {
+//     marca: "Chevrolet",
+//     modelo: "Onix",
+//     anoDeFabricacao: 2020,
+//    },
+//    {
+//     marca: "Volkswagen",
+//     modelo: "Nivus",
+//     anoDeFabricacao: 2020,
+//    },
+//   ],
+// };
+
+// for (let veiculo of concessionaria.veiculos) {
+//   console.log(`Marca: ${veiculo.marca}`);
+//   console.log(`Modelo: ${veiculo.modelo}`);
+//   console.log(`Ano de Fabricação: ${veiculo.anoDeFabricacao}`);
+// //  console.log(`Capacidade da bateria: ${veiculo.kw}`);
+// //  console.log(`Capacidade do tanque: ${veiculo.litros}`);
+// //  console.log(`Autonomia: ${veiculo.autonomia}`);
+
+// }
+
+// let pessoa = {
+//   nome : "João",
+//   idade: 17,
+
+// }
+
+// // Acessando propriedades com o operador ponto
+// console.log(pessoa.nome);
+// // e com a sintaxe de []
+// console.log("Tenho " + pessoa["idade"] + " anos");
+
+
+// let pessoaComEndereco = {
+//   nome: 21,
+//   endereco: {
+//     logradouro: "Rua B",
+//     numero: 121, 
+//   },
+// };
+
+// console.log(
+//   `Sou ${pessoaComEndereco.nome},
+//   tenho ${pessoaComEndereco.idade} anos
+//   e moro na rua ${pessoaComEndereco.endereco["logradouro"]}
+//     número ${pessoaComEndereco.endereco.numero}
+//   }`
+// );
+
+
+
+
+// function eAgora(){
+//   let cont = 1
+//   function f1(){
+//     console.log(cont)
+//   }
+//   cont++
+//   function f2(){
+//     console.log(cont)
+//   }
+//   cont++
+//   return {f1, f2}
+//   cont++
+// }
+
+// let eAgoraResult = eAgora()
+// eAgoraResult.f1()
+// eAgoraResult.f2()
+
+
 // function saudacoesFactory(saudacao, nome){
 //   let a
 //   return function(){
