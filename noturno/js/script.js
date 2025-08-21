@@ -1,3 +1,86 @@
+let pessoa = {
+    "nome" : "João",
+    "idade" : 17, 
+    nascimento: "1990-09-09"
+}
+
+console.log("Me chamo " + pessoa.nome);
+console.log("Tenho " + pessoa["idade"]);
+
+let pessoaComEndereco = {
+    nome: "Marcia",
+    idade: 21,
+    endereco: {
+        logradouro: "Rua B",
+        numero:121,
+        estado : {
+            nome: "São Paulo",
+            sigla: "SP"
+        }
+    },
+};
+
+console.log(
+    `Sou ${pessoaComEndereco.nome},
+    tenho ${pessoaComEndereco.idade} anos
+    trabalho como ${pessoaComEndereco.profissao}
+    e moro na rua ${pessoaComEndereco.endereco.logradouro}, ${pessoaComEndereco.endereco.numero} - ${pessoaComEndereco.endereco.estado.nome} (${pessoaComEndereco.endereco.estado.sigla})`
+);
+
+let concessionaria = {
+    cnpj : "00011122210001-45",
+    endereco: {
+        logradouro: "Rua A",
+        numero: 10,
+        bairro: "Vila J",
+    },
+    veiculos: [
+        { 
+            marca: "Ford",
+            modelo: "Ecosport",
+            anoDeFabricacao: 2018,
+        },
+        { 
+            marca: "Chevrolet",
+            modelo: "ônix",
+            anoDeFabricacao: 2020,
+
+        },
+        {
+            marca: "Volkswagen",
+            modelo: "Nivus",
+            anoDeFabricacao: 2020,
+        }
+    ],
+
+};
+
+for (let veiculo of concessionaria.veiculos) {
+    console.log(`Marca: ${veiculo.marca}`)
+    console.log(`Modelo: ${veiculo.modelo}`)
+    console.log(`Ano de Fabricação: ${veiculo.anoDeFabricacao}`)
+}
+
+// for (let veiculo of pessoaComEndereco.veiculos) {
+//     console.log(`Marca: ${veiculo.marca}`)
+//     console.log(`Modelo: ${veiculo.modelo}`)
+//     console.log(`Ano de Fabricação: ${veiculo.anoDeFabricacao}`)
+// }
+
+let calculadora = {
+    soma: 12,
+    somar: (a,b) => a + b,
+    subtracao: function (a, b) {
+        return a - b;
+    },
+};
+
+console.log(`2 + a = ${calculadora.somar(2, 3)}`);
+console.log(`2 - 3 = ${calculadora.subtracao(2, 3)}`);
+console.log("Valor da soma atual: " + calculadora.soma);
+
+let meuObjeto = { } 
+
 // Discussão da comparação de objetos e referências em javascript
 
 // console.log(1 == "1")
@@ -27,53 +110,53 @@
 
 // Vetores
 
-var v1 = [];
+// var v1 = [];
 
-console.log(v1.length)
+// console.log(v1.length)
 
-v1[0] = 3.4;
-
-
-console.log(v1.length)
-
-console.log(v1[100])
-
-v1[1000] = "ab"
-
-console.log(v1.length)
-
-for (let i = 0; i < v1.length; i++) {
-    console.log(v1[i]);
-}
-
-const nomes = ["Ana Maria", "Antonio", "Rodrigo", "Alex", "Cristina"]
-
-const apenasComA = nomes.filter((n) => n.startsWith("A"))
-
-console.log("Apenas com A")
-console.log(apenasComA)
-
-const res = nomes.map((n) => n.charAt(0))
-
-console.log("Primeiras letras")
-console.log(res)
-
-const todoComecamCom = nomes.every((n) => n.startsWith("A"))
-
-console.log("Todos os nomes do vetor começam com A?")
-console.log(todoComecamCom)
+// v1[0] = 3.4;
 
 
-const todosFiltradosComecamComA = apenasComA.every((n) => n.startsWith("A"))
+// console.log(v1.length)
 
-console.log("A lista de nomes do vetor filtrados começando com A tem todos os itens começando com A?")
-console.log(todosFiltradosComecamComA)
+// console.log(v1[100])
+
+// v1[1000] = "ab"
+
+// console.log(v1.length)
+
+// for (let i = 0; i < v1.length; i++) {
+//     console.log(v1[i]);
+// }
+
+// const nomes = ["Ana Maria", "Antonio", "Rodrigo", "Alex", "Cristina"]
+
+// const apenasComA = nomes.filter((n) => n.startsWith("A"))
+
+// console.log("Apenas com A")
+// console.log(apenasComA)
+
+// const res = nomes.map((n) => n.charAt(0))
+
+// console.log("Primeiras letras")
+// console.log(res)
+
+// const todoComecamCom = nomes.every((n) => n.startsWith("A"))
+
+// console.log("Todos os nomes do vetor começam com A?")
+// console.log(todoComecamCom)
 
 
-const valores = [1, 2, 3, 4];
-const soma = valores.reduce((ac, v) => ac + v);
+// const todosFiltradosComecamComA = apenasComA.every((n) => n.startsWith("A"))
 
-console.log(soma)
+// console.log("A lista de nomes do vetor filtrados começando com A tem todos os itens começando com A?")
+// console.log(todosFiltradosComecamComA)
+
+
+// const valores = [1, 2, 3, 4];
+// const soma = valores.reduce((ac, v) => ac + v);
+
+// console.log(soma)
 
 
 
