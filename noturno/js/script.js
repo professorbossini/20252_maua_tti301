@@ -1,106 +1,231 @@
-let pessoa = {
-    "nome" : "João",
-    "idade" : 17, 
-    nascimento: "1990-09-09"
+function eAgora(){
+    let cont = 1
+    function f1(){
+        console.log(cont)
+    }
+    cont++
+    function f2(){
+        console.log(cont)
+    }
+    return {f1, f2}
 }
+let eAgoraResult = eAgora()
+console.log(eAgoraResult)
+eAgoraResult.f1()
+eAgoraResult.f2()
 
-console.log("Me chamo " + pessoa.nome);
-console.log("Tenho " + pessoa["idade"]);
+// function saudacoesFactory(saudacao, nome){
+//     return function(){
+//         console.log(saudacao + ', ' + nome)
+//     }
+// }
 
-let pessoaComEndereco = {
-    nome: "Marcia",
-    idade: 21,
-    endereco: {
-        logradouro: "Rua B",
-        numero:121,
-        estado : {
-            nome: "São Paulo",
-            sigla: "SP"
-        }
-    },
-};
+// let olaJoao = saudacoesFactory('Olá', 'João')
+// let tchauMaria = saudacoesFactory('Tchau', 'Maria')
 
-console.log(
-    `Sou ${pessoaComEndereco.nome},
-    tenho ${pessoaComEndereco.idade} anos
-    trabalho como ${pessoaComEndereco.profissao}
-    e moro na rua ${pessoaComEndereco.endereco.logradouro}, ${pessoaComEndereco.endereco.numero} - ${pessoaComEndereco.endereco.estado.nome} (${pessoaComEndereco.endereco.estado.sigla})`
-);
+// olaJoao()
+// tchauMaria()
 
-let concessionaria = {
-    cnpj : "00011122210001-45",
-    endereco: {
-        logradouro: "Rua A",
-        numero: 10,
-        bairro: "Vila J",
-    },
-    veiculos: [
-        { 
-            marca: "Ford",
-            modelo: "Ecosport",
-            anoDeFabricacao: 2018,
-        },
-        { 
-            marca: "Chevrolet",
-            modelo: "ônix",
-            anoDeFabricacao: 2020,
+// const fs = require('fs')
+// const abrirArquivo = function(nomeArquivo){
+//     const exibirConteudo = function(erro, conteudo){
+//         if (erro){
+//             console.log(`Deu erro: ${erro}`)
+//         } else {
+//             console.log(conteudo.toString())
+//             const dobro = conteudo.toString() * 2
+//             const finalizar = function(erro){
+//                 if(erro){
+//                     console.log('Deu erro tentando salvar o dobro')
+//                 } else {
+//                     console.log('Salvou o dobro com sucesso')
+//                 }
+//             }
+//             fs.writeFile('dobro.txt', dobro.toString(), finalizar)
+//         }
+//     }
+//     fs.readFile(nomeArquivo, exibirConteudo)
+// }
+// abrirArquivo('arquivo.txt')
 
-        },
-        {
-            marca: "Volkswagen",
-            modelo: "Nivus",
-            anoDeFabricacao: 2020,
-        }
-    ],
+// const fs = require('fs')
+// const abrirArquivo = function(nomeArquivo){
+//     const exibirConteudo = function(erro, conteudo){
+//         if (erro){
+//             console.log(`Deu erro: ${erro}`)
+//         } else {
+//             console.log(conteudo.toString())
+//         }
+//     }
+//     fs.readFile(nomeArquivo, exibirConteudo)
+// }
+// abrirArquivo('arquivo.txt')
 
-};
+// function demorada(tempo){
+//     console.log(`demorada ${tempo}`)
+//     const atualMaisTempo = new Date().getTime() + tempo
+//     while (new Date().getTime() <= atualMaisTempo);
+//     const d = 8 + 4
+//     return d
+// }
+// setTimeout(function(){demorada(2000)}, 2000)
+// setTimeout(function(){demorada(1000)}, 1000)
+// console.log("chegou ao fim do script principal")
 
-for (let veiculo of concessionaria.veiculos) {
-    console.log(`Marca: ${veiculo.marca}`)
-    console.log(`Modelo: ${veiculo.modelo}`)
-    console.log(`Ano de Fabricação: ${veiculo.anoDeFabricacao}`)
-}
+// setTimeout(function(){
+//     console.log('dentro da timeout', 0)
+// })
+// const a = new Date().getTime() + 1000
+// while (new Date().getTime() <= a);
+// console.log('fora da timeout')
 
-// for (let veiculo of pessoaComEndereco.veiculos) {
+// function demorada(){
+//     const atualMais2Segundos = new Date().getTime() + 2000
+//     while (new Date().getTime() <= atualMais2Segundos);
+//     const d = 8 + 4
+//     return d
+// }
+// const a = 2 + 3
+// const b = 5 + 9
+// setTimeout(function(){
+//     const d = demorada()
+//     console.log(d)
+// }, 500)
+// const e = 2 + a + b
+// console.log(e)
+
+// function demorada(){
+//     const atualMais2Segundos = new Date().getTime() + 2000
+//     while (new Date().getTime() <= atualMais2Segundos);
+//     const d = 8 + 4
+//     return d
+// }
+// const a = 2 + 3
+// const b = 5 + 9
+// const d = demorada()
+// const e = 2 + a + b
+// console.log(e)
+
+// console.log('Eu primeiro')
+// console.log('Agora eu')
+// console.log('Sempre vou ser a última')
+
+// const a = 2 + 7
+// const b = 5
+// console.log(a + b)
+
+// let pessoa = {
+//     "nome" : "João",
+//     "idade" : 17, 
+//     nascimento: "1990-09-09"
+// }
+
+// console.log("Me chamo " + pessoa.nome);
+// console.log("Tenho " + pessoa["idade"]);
+
+// let pessoaComEndereco = {
+//     nome: "Marcia",
+//     idade: 21,
+//     endereco: {
+//         logradouro: "Rua B",
+//         numero:121,
+//         estado : {
+//             nome: "São Paulo",
+//             sigla: "SP"
+//         }
+//     },
+// };
+
+// console.log(
+//     `Sou ${pessoaComEndereco.nome},
+//     tenho ${pessoaComEndereco.idade} anos
+//     trabalho como ${pessoaComEndereco.profissao}
+//     e moro na rua ${pessoaComEndereco.endereco.logradouro}, ${pessoaComEndereco.endereco.numero} - ${pessoaComEndereco.endereco.estado.nome} (${pessoaComEndereco.endereco.estado.sigla})`
+// );
+
+// let concessionaria = {
+//     cnpj : "00011122210001-45",
+//     endereco: {
+//         logradouro: "Rua A",
+//         numero: 10,
+//         bairro: "Vila J",
+//     },
+//     veiculos: [
+//         { 
+//             marca: "Ford",
+//             modelo: "Ecosport",
+//             anoDeFabricacao: 2018,
+//         },
+//         { 
+//             marca: "Chevrolet",
+//             modelo: "ônix",
+//             anoDeFabricacao: 2020,
+
+//         },
+//         {
+//             marca: "Volkswagen",
+//             modelo: "Nivus",
+//             anoDeFabricacao: 2020,
+//         }
+//     ],
+
+// };
+
+// for (let veiculo of concessionaria.veiculos) {
 //     console.log(`Marca: ${veiculo.marca}`)
 //     console.log(`Modelo: ${veiculo.modelo}`)
 //     console.log(`Ano de Fabricação: ${veiculo.anoDeFabricacao}`)
 // }
 
-let calculadora = {
-    soma: 12,
-    somar: (a,b) => a + b,
-    subtracao: function (a, b) {
-        return a - b;
-    },
-};
+// // for (let veiculo of pessoaComEndereco.veiculos) {
+// //     console.log(`Marca: ${veiculo.marca}`)
+// //     console.log(`Modelo: ${veiculo.modelo}`)
+// //     console.log(`Ano de Fabricação: ${veiculo.anoDeFabricacao}`)
+// // }
 
-console.log(`2 + a = ${calculadora.somar(2, 3)}`);
-console.log(`2 - 3 = ${calculadora.subtracao(2, 3)}`);
-console.log("Valor da soma atual: " + calculadora.soma);
+// let calculadora = {
+//     soma: 12,
+//     somar: (a,b) => a + b,
+//     subtracao: function (a, b) {
+//         return a - b;
+//     },
+// };
 
-let meuObjeto = { } 
+// let operacao = 'subtracao'
+// //const op = calculadora[operacao]
+// //console.log(op(2, 3))
+// //console.log(op(3, 6))
 
-// escopo interno e externo
+// console.log(calculadora[operacao](2, 3))
+// operacao = 'somar'
+// console.log(calculadora[operacao](2, 3))
 
-// function f(){
+// console.log(`2 + a = ${calculadora.somar(2, 3)}`);
+// console.log(`2 - 3 = ${calculadora.subtracao(2, 3)}`);
+// console.log("Valor da soma atual: " + calculadora.soma);
+
+// let meuObjeto = { } 
+
+// // escopo interno e externo
+
+// // function f(){
+// //     let nome = 'João'
+// //     function g(){
+// //         console.log(nome)
+// //     }
+// //     g()
+// // }
+// // f()
+
+// function ola(){
 //     let nome = 'João'
-//     function g(){
-//         console.log(nome)
+//     return function(){
+//         console.log('Olá ', nome)
 //     }
-//     g()
 // }
-// f()
 
-function ola(){
-    let nome = 'João'
-    return function(){
-        console.log('Olá ', nome)
-    }
-}
-
-olaResult = ola()
-olaResult()
+// olaResult = ola()
+// olaResult()
 
 // // closure
 
