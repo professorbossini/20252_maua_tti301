@@ -1,3 +1,277 @@
+const axios = require("axios");
+ //sua chave aqui
+const appid = "sua_chave_aqui";
+ //cidade desejada
+ const q = "Itu";
+ //unidade de medida de temperatura
+ const units = "metric";
+ //idioma
+ const lang = "pt_BR";
+ //quantidade de resultados
+ const cnt = "10"
+ const url = `https://api.openweathermap.org/data/2.5/forecast?q=${q}&units=${units}&appid=${appid}&lang=${lang}&cnt=${cnt}`;
+
+axios
+  .get(url)
+  .then((res) => {
+    console.log(res);
+    return res.data;
+  })
+  .then((res) => {
+    console.log(res.cnt);
+    return res;
+  })
+  .then((res) => {
+    console.log("aqui", res);
+    return res['list'];
+  })
+  .then((res) => {
+    for (let previsao of res) {
+      console.log(`
+        ${new Date(+previsao.dt * 1000).toLocaleString()},
+        ${'Min: ' + previsao.main.temp_min}\u00B0C,
+        ${'Max: ' + previsao.main.temp_max}\u00B0C,
+        ${'Hum: ' + previsao.main.humidity}%,
+        ${previsao.weather[0].description}
+
+        `);
+    }
+    return res;
+  })
+  .then((res) => {
+    const lista = res.filter(r => r.main.feels_like >= 30);
+    console.log (`${lista.length} previsões têm
+      percepção humana de temperatura acima de 30
+      graus`)
+      
+  });
+
+
+
+
+
+
+// const fs = require("fs").promises;
+
+// async function calcularMultiplos(nomeArquivo) {
+//     try {
+//         console.log("Iniciando o processo...")
+//         // 1 - Leitura do arquivo principal
+
+//         const conteudoInicial = await fs.readFile(nomeArquivo);
+//         console.log(`Conteúdo do arquivo ${nomeArquivo}: ${conteudoInicial.toString()}`);
+
+//         // 2 - calculo do dobro e escrita do valor
+//         const dobro = Number(conteudoInicial.toString()) * 2;
+//         await fs.writeFile('dobro.txt', dobro.toString());
+//         console.log(`Dobro do valor escrito em dobro.txt: ${dobro}`);
+
+
+//     } catch(erro) {
+//         console.log(`Erro ao processar ${erro}`);
+//     }
+// }
+
+// calcularMultiplos('arquivo.txt');
+
+
+// function fatorial(n) {
+//      if (n < 0) return Promise.reject("Valor não pode ser negativo");
+//  let res = 1;
+//      for (let i = 2; i <= n; i++) res *= i;
+//      return Promise.resolve(res);
+// }
+
+// async function chamadaComAwait() {
+//     //note que não há paralelismo implícito
+//     //somente haverá paralelismo se a função chamada utilizar explicitamente
+//     const f1 = await fatorial(5);
+//     console.log(f1);
+//     const f2 = await fatorial(-1);
+//     console.log(f2);
+// }
+
+// await chamadaComAwait();
+
+
+// function chamadaComThenCatch() {
+//      fatorial(5)
+//      .then((res) => console.log(res))
+//      .catch((res) => console.log(res));
+    
+//      fatorial(-1)
+//      .then((res) => console.log(res))
+//      .catch((res) => console.log(res));
+    
+// }
+// chamadaComThenCatch();
+
+
+
+// async function hello(nome) {
+//     return "Oi, " + nome;
+// }
+
+// const boasVindas = hello("João");
+// console.log(boasVindas);
+// boasVindas.then((res) => console.log(res));
+
+
+
+// function calculoRapidinho(numero) {
+//      return numero >= 0
+//      ? Promise.resolve((numero * (numero + 1)) / 2)
+//      : Promise.reject("Somente valores positivos, por favor");
+// }
+
+// calculoRapidinho(10)
+//  .then((resultado) => {
+//      console.log(resultado);
+// })
+//  .catch((err) => {
+//      console.log(err);
+// });
+
+// calculoRapidinho(-1)
+//  .then((resultado) => {
+//     console.log(resultado);
+// })
+//  .catch((err) => {
+//      console.log(err);
+// });
+
+// console.log("esperando...");
+
+
+// function calculoRapidinho(numero) {
+//      return Promise.resolve((numero * (numero + 1)) / 2);
+    
+// }
+
+// console.log("Antes de chamar o calculo rapidinho")
+// calculoRapidinho(10).then(resultado => {
+//     console.log("Agora estou continuando na parte do then")
+//      console.log(resultado)
+    
+// })
+// //Executa primeiro, mesmo que a promise já esteja fullfilled
+// console.log('Esperando...')
+// console.log("Após chamar o calculo rapidinho")
+
+
+
+// function calculoDemorado(numero) {
+//    return new Promise(function (resolve, reject) {
+//      let res = 0;
+//      for (let i = 1; i <= numero; i++) {
+//        res += i;
+      
+//     }
+//      resolve(res);
+//   });
+  
+// }
+//  calculoDemorado(10).then((resultado) => {
+//    console.log(resultado)
+// })
+
+
+
+// // const fs = require('fs')
+
+// // const abrirArquivo = function (nomeArquivo) {
+//   const exibirConteudo = function (erro, conteudo) {
+//     if (erro) {
+//       console.log(`Deu erro ao ler o arquivo inicial: ${erro}`)
+//     }
+//     else {
+//       console.log(`Conteúdo do arquivo.txt: ${conteudo.toString()}`)
+//       const dobro = Number(conteudo.toString()) * 2
+
+//       const finalizar = function (erro) {
+//         if (erro) {
+//           console.log(`Erro tentando salvar o dobro: ${erro}`)
+//         }
+//         else {
+//           console.log("Salvou o dobro com sucesso")
+//           // Precisamos tratar a abertura no caso do sucesso de salvar o arquivo dobro.txt
+//           // É esse encadeamento que vai tornando cada vez mais críptico nosso código...
+//           // --- INÍCIO DA NOVA LÓGICA PARA LER O dobro.txt, calcular o triplo e salvar o resultado---
+//           // Agora, lemos o arquivo 'dobro.txt' que acabamos de salvar.
+//           fs.readFile('dobro.txt', (erroLeituraDobro, conteudoDobro) => {
+//             if (erroLeituraDobro) {
+//               console.log(`Erro ao ler o arquivo dobro.txt: ${erroLeituraDobro}`)
+//             } else {
+//               console.log(`Conteúdo do dobro.txt: ${conteudoDobro.toString()}`)
+//               const triplo = Number(conteudoDobro.toString()) * 3
+
+//               // Callback para a escrita do arquivo 'triplo.txt'
+//               const finalizarTriplo = function (erroEscritaTriplo) {
+//                 if (erroEscritaTriplo) {
+//                   console.log(`Erro tentando salvar o triplo: ${erroEscritaTriplo}`)
+//                 } else {
+//                   console.log("Salvou o triplo com sucesso")
+//                 }
+//               }
+
+//               // Escreve o resultado no arquivo 'triplo.txt'
+//               fs.writeFile('triplo.txt', triplo.toString(), finalizarTriplo)
+//             }
+//           })
+//           // --- FIM DA NOVA LÓGICA ---
+//         }
+//       }
+
+//       fs.writeFile('dobro.txt', dobro.toString(), finalizar)
+//     }
+//   }
+
+//   fs.readFile(nomeArquivo, exibirConteudo)
+//   console.log('Continuando...') // Este log ainda executa primeiro
+// }
+
+// console.log("Antes da chamada inicial")
+// abrirArquivo('arquivo.txt')
+// console.log("Após a chamada inicial")
+
+
+
+
+
+//depois que salvou o dobro, fazer a leitura do conteúdo do arquivo dobro.txt e calcular o triplo dele, salvando num arquivo chamado triplo.txt
+// const fs = require('fs')
+// const abrirArquivo = function(nomeArquivo){
+//   const exibirConteudo = function(erro, conteudo){
+//     if(erro){
+//       console.log(`Deu erro: ${erro}`)
+//     }
+//     else{ 
+//       console.log(`Conteúdo: ${conteudo.toString()}`)
+//       const dobro = Number(conteudo.toString()) * 2
+//       const finalizar = function(erro){
+//         if(erro){
+//           console.log(`Erro tentando salvar o dobro: ${erro}`)
+//         }
+//         else{
+//           console.log("Salvou o dobro com sucesso")
+          
+//         }
+//       }
+//       fs.writeFile('dobro.txt', dobro.toString(), finalizar)
+//     }
+//   }
+//   fs.readFile(nomeArquivo, exibirConteudo)
+//   console.log('Continuando...')
+// }
+// abrirArquivo('arquivo.txt')
+
+
+
+// let pessoa = {
+//     "nome" : "João",
+//     "idade" : 17, 
+//     nascimento: "1990-09-09"
+// }
 function eAgora(){
     let cont = 1
     function f1(){
@@ -191,354 +465,145 @@ eAgoraResult.f2()
 //     },
 // };
 
-// let operacao = 'subtracao'
-// //const op = calculadora[operacao]
-// //console.log(op(2, 3))
-// //console.log(op(3, 6))
+console.log(`2 + a = ${calculadora.somar(2, 3)}`);
+console.log(`2 - 3 = ${calculadora.subtracao(2, 3)}`);
+console.log("Valor da soma atual: " + calculadora.soma);
 
-// console.log(calculadora[operacao](2, 3))
-// operacao = 'somar'
-// console.log(calculadora[operacao](2, 3))
+let meuObjeto = { } 
 
-// console.log(`2 + a = ${calculadora.somar(2, 3)}`);
-// console.log(`2 - 3 = ${calculadora.subtracao(2, 3)}`);
-// console.log("Valor da soma atual: " + calculadora.soma);
+// // Discussão da comparação de objetos e referências em javascript
 
-// let meuObjeto = { } 
+// // console.log(1 == "1")
 
-// // escopo interno e externo
+// // console.log([1] == [1])
 
-// // function f(){
-// //     let nome = 'João'
-// //     function g(){
-// //         console.log(nome)
-// //     }
-// //     g()
-// // }
-// // f()
+// // console.log([1] == "1")
 
-// function ola(){
-//     let nome = 'João'
-//     return function(){
-//         console.log('Olá ', nome)
-//     }
-// }
+// // var a = [1]
+// // var b = [1]
 
-// olaResult = ola()
-// olaResult()
+// // console.log(a == b)
 
-// // closure
+// // var c = a
 
-// //armazenando uma função em uma variável
-// let umaFuncao = function () {
-//     console.log('Fui armazenenada em uma variável')
-// }
-// umaFuncao()
+// // console.log(a == c)
 
-// //receber uma função como argumento
-// function teste(){
-//     console.log('eu sou um teste')
-// }
-// function f(funcao){
-//     funcao()
-// }
-// teste()
-// f(teste)
-// f(umaFuncao)
-// f(function (){
-//     console.log('Estou sendo passada para f')
-// })
+// // console.log( a === c)
 
-// //uma função pode retornar outra função
-// function g(){
-//     function outraFuncao(){
-//         console.log('Fui criada por g.')
-//     }
-//     return outraFuncao
-// }
+// // console.log([1] === [1])
 
-// gResult = g()
-// console.log(gResult)
-// gResult()
-// g()()
+// // console.log(a == c)
 
-// f(g)
-// f(g())
-//f(g()())
-//f(1)
+// // console.log([1] === [1])
 
-// //arrow functions
-// const hello = () => console.log('hello')
-// hello()
-
-// const dobro = (n) => n * 2
-// console.log(dobro(2))
-
-// const triplo = (n) => {
-//     return n * 3
-// }
-// console.log(triplo(4))
-
-// const ehPar = (n) => {
-//     //com várias linhas
-//     if(n%2===0){
-//         return true
-//     } else {
-//         return false
-//     }
-// }
-// console.log(ehPar(10))
-// console.log(ehPar(11))
-
-// const ehPar2 = (n) => n%2===0
-// console.log(ehPar2(10))
-// console.log(ehPar2(11))
-
-
-// // funções
-
-// function hello(){
-//     console.log('Oi')
-// }
-// hello()
-
-// function hello(nome){
-//     console.log(`Olá, ${nome}`)
-// }
-// hello('Pedro')
-
-// function soma(a, b){
-//     return a + b
-// }
-// res = soma(2, 3)
-// console.log(res)
-
-// console.log(soma(2, 4))
-
-// console.log(soma('2', '3'))
-
-// // funções anônimas
-// const dobro = function(n){
-//     return n * 2
-// }
-// console.log(dobro(3))
-
-// // valores default para parâmetros
-// const triplo = function(n=5){
-//     return 3*n
-// }
-// console.log(triplo(3))
-// console.log(triplo())
-
-// const quadruplo = function(n){
-//     return dobro(dobro(n))
-// }
-// console.log(quadruplo(4))
-
-// let quintuplo = triplo(triplo())
-// console.log(quintuplo)
-
-// const fatorial = function(n){
-//     if (n == 0){
-//         return 1
-//     } else {
-//         return n*fatorial(n-1)
-//     }
-// }
-// console.log('fatorial 5 =', fatorial(5))
-
-
-
-// const v10 = []
-// console.log(v10)
-// v10[0] = 1
-// v10[1] = 2
-// console.log(v10)
-// v10 = []
+// // console.log( a === c)
 
 // // Vetores
 
-// var v1 = [];
+// // var v1 = [];
 
-// console.log(v1.length)
+// // console.log(v1.length)
 
-// v1[0] = 3.4;
+// // v1[0] = 3.4;
 
 
-// console.log(v1.length)
+// // console.log(v1.length)
 
-// console.log(v1[100])
+// // console.log(v1[100])
 
-// v1[1000] = "ab"
+// // v1[1000] = "ab"
 
-// console.log(v1.length)
+// // console.log(v1.length)
 
-// for (let i = 0; i < v1.length; i++) {
-//     console.log(v1[i]);
-// }
+// // for (let i = 0; i < v1.length; i++) {
+// //     console.log(v1[i]);
+// // }
 
-const nomes = ["Ana Maria", "Antonio", "Rodrigo", "Alex", "Cristina"]
+// // const nomes = ["Ana Maria", "Antonio", "Rodrigo", "Alex", "Cristina"]
 
-// const apenasComA = nomes.filter((n) => n.startsWith("A"))
+// // const apenasComA = nomes.filter((n) => n.startsWith("A"))
 
-// console.log("Apenas com A")
-// console.log(apenasComA)
+// // console.log("Apenas com A")
+// // console.log(apenasComA)
 
-// const res = nomes.map((n) => n.charAt(0))
+// // const res = nomes.map((n) => n.charAt(0))
 
-// console.log("Primeiras letras")
-// console.log(res)
+// // console.log("Primeiras letras")
+// // console.log(res)
 
-// const todoComecamCom = nomes.every((n) => n.startsWith("A"))
+// // const todoComecamCom = nomes.every((n) => n.startsWith("A"))
 
-// console.log("Todos os nomes do vetor começam com A?")
-// console.log(todoComecamCom)
+// // console.log("Todos os nomes do vetor começam com A?")
+// // console.log(todoComecamCom)
 
 
-// const todosFiltradosComecamComA = apenasComA.every((n) => n.startsWith("A"))
+// // const todosFiltradosComecamComA = apenasComA.every((n) => n.startsWith("A"))
 
-// console.log("A lista de nomes do vetor filtrados começando com A tem todos os itens começando com A?")
-// console.log(todosFiltradosComecamComA)
+// // console.log("A lista de nomes do vetor filtrados começando com A tem todos os itens começando com A?")
+// // console.log(todosFiltradosComecamComA)
 
 
-// const valores = [1, 2, 3, 4];
-// const soma = valores.reduce((ac, v) => ac + v);
+// // const valores = [1, 2, 3, 4];
+// // const soma = valores.reduce((ac, v) => ac + v);
 
-// console.log(soma)
+// // console.log(soma)
 
-// Discussão da comparação de objetos e referências em javascript
 
-// console.log(1 == "1")
 
-// console.log([1] == [1])
+// //comparação
+// // console.log(1 == 1) //true
+// // console.log(1 == "1") //true
+// // console.log(1 === 1) //true
+// // console.log(1 === "1") //false
+// // console.log(true == 1) //true
+// // console.log(1 == [1]) //true
+// // console.log(null == null) //true
+// // console.log(null == undefined) //true
+// // console.log([] == false) //true
+// // console.log([] == []) //false
 
-// console.log([1] == "1")
 
-// var a = [1]
-// var b = [1]
+// // //coerção
+// // const n1 = 2
+// // const n2 = '3'
+// // //coerção implícita
+// // console.log(n1+n2)
+// // //coerção explícita
+// // const n4 = n1 + Number(n2)
+// // console.log(n4)
 
-// console.log(a == b)
+// // //variável pode ser redeclarada
+// // var linguagem = "Javascript"
+// // console.log("Aprendendo "+linguagem)
 
-// var c = a
+// // var linguagem = "Java"
+// // console.log("Aprendendo "+linguagem)
 
-// console.log(a == c)
+// // var idade = 18
+// // console.log(`Oi, ${nome}`)
+// // //a variável é içada (do inglês hoist)
+// // if (idade >= 18){
+// //     var nome = "João"
+// //     console.log(`Parabéns, ${nome}. Você já pode dirigir.`)
+// // }
+// // console.log(`Até mais, ${nome}`)
 
-// console.log( a === c)
 
-// console.log([1] === [1])
-
-// console.log(a == c)
-
-// console.log([1] === [1])
-
-// console.log( a === c)
-
-// Vetores
-
-// var v1 = [];
-
-// console.log(v1.length)
-
-// v1[0] = 3.4;
-
-
-// console.log(v1.length)
-
-// console.log(v1[100])
-
-// v1[1000] = "ab"
-
-// console.log(v1.length)
-
-// for (let i = 0; i < v1.length; i++) {
-//     console.log(v1[i]);
-// }
-
-// const nomes = ["Ana Maria", "Antonio", "Rodrigo", "Alex", "Cristina"]
-
-// const apenasComA = nomes.filter((n) => n.startsWith("A"))
-
-// console.log("Apenas com A")
-// console.log(apenasComA)
-
-// const res = nomes.map((n) => n.charAt(0))
-
-// console.log("Primeiras letras")
-// console.log(res)
-
-// const todoComecamCom = nomes.every((n) => n.startsWith("A"))
-
-// console.log("Todos os nomes do vetor começam com A?")
-// console.log(todoComecamCom)
-
-
-// const todosFiltradosComecamComA = apenasComA.every((n) => n.startsWith("A"))
-
-// console.log("A lista de nomes do vetor filtrados começando com A tem todos os itens começando com A?")
-// console.log(todosFiltradosComecamComA)
-
-
-// const valores = [1, 2, 3, 4];
-// const soma = valores.reduce((ac, v) => ac + v);
-
-// console.log(soma)
-
-
-
-//comparação
-// console.log(1 == 1) //true
-// console.log(1 == "1") //true
-// console.log(1 === 1) //true
-// console.log(1 === "1") //false
-// console.log(true == 1) //true
-// console.log(1 == [1]) //true
-// console.log(null == null) //true
-// console.log(null == undefined) //true
-// console.log([] == false) //true
-// console.log([] == []) //false
-
-
-// //coerção
-// const n1 = 2
-// const n2 = '3'
-// //coerção implícita
-// console.log(n1+n2)
-// //coerção explícita
-// const n4 = n1 + Number(n2)
-// console.log(n4)
-
-// //variável pode ser redeclarada
-// var linguagem = "Javascript"
-// console.log("Aprendendo "+linguagem)
-
-// var linguagem = "Java"
-// console.log("Aprendendo "+linguagem)
-
-// var idade = 18
-// console.log(`Oi, ${nome}`)
-// //a variável é içada (do inglês hoist)
-// if (idade >= 18){
-//     var nome = "João"
-//     console.log(`Parabéns, ${nome}. Você já pode dirigir.`)
-// }
-// console.log(`Até mais, ${nome}`)
-
-
-// //declarando constantes
-// const nome = "José"
-// const idade = 27
-// //aspas simples e duplas tem o mesmo efeito
-// const sexo = "M"
-// const endereco = 'Rua K, 12'
-// const outro_end = "Rua Olho D'Água, 38"
-// //declarando variáveis
-// //let: variável tem o escopo de bloco
-// let a = 2
-// let b = "abc"
-// //var: escopo da função onde é criado ou global
-// var c = 2 + 3
-// var d = "abcd"
-
-// console.log(a)
-// console.log(b)
-// console.log(c, d)
+// // //declarando constantes
+// // const nome = "José"
+// // const idade = 27
+// // //aspas simples e duplas tem o mesmo efeito
+// // const sexo = "M"
+// // const endereco = 'Rua K, 12'
+// // const outro_end = "Rua Olho D'Água, 38"
+// // //declarando variáveis
+// // //let: variável tem o escopo de bloco
+// // let a = 2
+// // let b = "abc"
+// // //var: escopo da função onde é criado ou global
+// // var c = 2 + 3
+// // var d = "abcd"
+
+// // console.log(a)
+// // console.log(b)
+// // console.log(c, d)
