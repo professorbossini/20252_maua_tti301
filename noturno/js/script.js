@@ -1,50 +1,81 @@
-const axios = require("axios");
- //sua chave aqui
-const appid = "sua_chave_aqui";
- //cidade desejada
- const q = "Itu";
- //unidade de medida de temperatura
- const units = "metric";
- //idioma
- const lang = "pt_BR";
- //quantidade de resultados
- const cnt = "10"
- const url = `https://api.openweathermap.org/data/2.5/forecast?q=${q}&units=${units}&appid=${appid}&lang=${lang}&cnt=${cnt}`;
+function somaAte(numero){
+  return numero >= 0
+  ? Promise.resolve((numero * (numero + 1) / 2))
+  : Promise.reject("Somente números positivos")
+}
 
-axios
-  .get(url)
+somaAte(10)
   .then((res) => {
-    console.log(res);
-    return res.data;
+    console.log(res)
+    return res
   })
   .then((res) => {
-    console.log(res.cnt);
-    return res;
+    res1 = res * 10
+    console.log(res1)
   })
-  .then((res) => {
-    console.log("aqui", res);
-    return res['list'];
+  .catch((err) => {
+    console.log(err)
   })
-  .then((res) => {
-    for (let previsao of res) {
-      console.log(`
-        ${new Date(+previsao.dt * 1000).toLocaleString()},
-        ${'Min: ' + previsao.main.temp_min}\u00B0C,
-        ${'Max: ' + previsao.main.temp_max}\u00B0C,
-        ${'Hum: ' + previsao.main.humidity}%,
-        ${previsao.weather[0].description}
 
-        `);
-    }
-    return res;
-  })
-  .then((res) => {
-    const lista = res.filter(r => r.main.feels_like >= 30);
-    console.log (`${lista.length} previsões têm
-      percepção humana de temperatura acima de 30
-      graus`)
+async function chamadaAssincrona(){
+  try{
+    res = await somaAte(10)
+    console.log(res)
+    res1 = res * 10
+    console.log(res1)
+  } catch (err){
+    console.log(err)
+  }
+}
+chamadaAssincrona()
+
+// const axios = require("axios");
+//  //sua chave aqui
+// const appid = "sua_chave_aqui";
+//  //cidade desejada
+//  const q = "Itu";
+//  //unidade de medida de temperatura
+//  const units = "metric";
+//  //idioma
+//  const lang = "pt_BR";
+//  //quantidade de resultados
+//  const cnt = "10"
+//  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${q}&units=${units}&appid=${appid}&lang=${lang}&cnt=${cnt}`;
+
+// axios
+//   .get(url)
+//   .then((res) => {
+//     console.log(res);
+//     return res.data;
+//   })
+//   .then((res) => {
+//     console.log(res.cnt);
+//     return res;
+//   })
+//   .then((res) => {
+//     console.log("aqui", res);
+//     return res['list'];
+//   })
+//   .then((res) => {
+//     for (let previsao of res) {
+//       console.log(`
+//         ${new Date(+previsao.dt * 1000).toLocaleString()},
+//         ${'Min: ' + previsao.main.temp_min}\u00B0C,
+//         ${'Max: ' + previsao.main.temp_max}\u00B0C,
+//         ${'Hum: ' + previsao.main.humidity}%,
+//         ${previsao.weather[0].description}
+
+//         `);
+//     }
+//     return res;
+//   })
+//   .then((res) => {
+//     const lista = res.filter(r => r.main.feels_like >= 30);
+//     console.log (`${lista.length} previsões têm
+//       percepção humana de temperatura acima de 30
+//       graus`)
       
-  });
+//   });
 
 
 
@@ -272,21 +303,21 @@ axios
 //     "idade" : 17, 
 //     nascimento: "1990-09-09"
 // }
-function eAgora(){
-    let cont = 1
-    function f1(){
-        console.log(cont)
-    }
-    cont++
-    function f2(){
-        console.log(cont)
-    }
-    return {f1, f2}
-}
-let eAgoraResult = eAgora()
-console.log(eAgoraResult)
-eAgoraResult.f1()
-eAgoraResult.f2()
+// function eAgora(){
+//     let cont = 1
+//     function f1(){
+//         console.log(cont)
+//     }
+//     cont++
+//     function f2(){
+//         console.log(cont)
+//     }
+//     return {f1, f2}
+// }
+// let eAgoraResult = eAgora()
+// console.log(eAgoraResult)
+// eAgoraResult.f1()
+// eAgoraResult.f2()
 
 // function saudacoesFactory(saudacao, nome){
 //     return function(){
@@ -465,11 +496,11 @@ eAgoraResult.f2()
 //     },
 // };
 
-console.log(`2 + a = ${calculadora.somar(2, 3)}`);
-console.log(`2 - 3 = ${calculadora.subtracao(2, 3)}`);
-console.log("Valor da soma atual: " + calculadora.soma);
+// console.log(`2 + a = ${calculadora.somar(2, 3)}`);
+// console.log(`2 - 3 = ${calculadora.subtracao(2, 3)}`);
+// console.log("Valor da soma atual: " + calculadora.soma);
 
-let meuObjeto = { } 
+// let meuObjeto = { } 
 
 // // Discussão da comparação de objetos e referências em javascript
 
