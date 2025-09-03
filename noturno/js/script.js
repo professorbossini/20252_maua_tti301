@@ -1,55 +1,84 @@
-const axios = require("axios");
- //sua chave aqui
-const appid = "sua_chave_aqui";
- //cidade desejada
- const q = "Itu";
- //unidade de medida de temperatura
- const units = "metric";
- //idioma
- const lang = "pt_BR";
- //quantidade de resultados
- const cnt = "10"
- const url = `https://api.openweathermap.org/data/2.5/forecast?q=${q}&units=${units}&appid=${appid}&lang=${lang}&cnt=${cnt}`;
+function somaAte(numero){
+  return numero >= 0
+  ? Promise.resolve((numero * (numero + 1) / 2))
+  : Promise.reject("Somente números positivos")
+}
 
-axios
-  .get(url)
+somaAte(10)
   .then((res) => {
-    console.log(res);
-    return res.data;
+    console.log(res)
+    return res
   })
   .then((res) => {
-    console.log(res.cnt);
-    return res;
+    res1 = res * 10
+    console.log(res1)
   })
-  .then((res) => {
-    console.log("aqui", res);
-    return res['list'];
+  .catch((err) => {
+    console.log(err)
   })
-  .then((res) => {
-    for (let previsao of res) {
-      console.log(`
-        ${new Date(+previsao.dt * 1000).toLocaleString()},
-        ${'Min: ' + previsao.main.temp_min}\u00B0C,
-        ${'Max: ' + previsao.main.temp_max}\u00B0C,
-        ${'Hum: ' + previsao.main.humidity}%,
-        ${previsao.weather[0].description}
 
-        `);
-    }
-    return res;
-  })
-  .then((res) => {
-    const lista = res.filter(r => r.main.feels_like >= 30);
-    console.log (`${lista.length} previsões têm
-      percepção humana de temperatura acima de 30
-      graus`)
+async function chamadaAssincrona(){
+  try{
+    res = await somaAte(10)
+    console.log(res)
+    res1 = res * 10
+    console.log(res1)
+  } catch (err){
+    console.log(err)
+  }
+}
+chamadaAssincrona()
+
+
+
+
+// const axios = require("axios");
+//  //sua chave aqui
+// const appid = "sua_chave_aqui";
+//  //cidade desejada
+//  const q = "Itu";
+//  //unidade de medida de temperatura
+//  const units = "metric";
+//  //idioma
+//  const lang = "pt_BR";
+//  //quantidade de resultados
+//  const cnt = "10"
+//  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${q}&units=${units}&appid=${appid}&lang=${lang}&cnt=${cnt}`;
+
+// axios
+//   .get(url)
+//   .then((res) => {
+//     console.log(res);
+//     return res.data;
+//   })
+//   .then((res) => {
+//     console.log(res.cnt);
+//     return res;
+//   })
+//   .then((res) => {
+//     console.log("aqui", res);
+//     return res['list'];
+//   })
+//   .then((res) => {
+//     for (let previsao of res) {
+//       console.log(`
+//         ${new Date(+previsao.dt * 1000).toLocaleString()},
+//         ${'Min: ' + previsao.main.temp_min}\u00B0C,
+//         ${'Max: ' + previsao.main.temp_max}\u00B0C,
+//         ${'Hum: ' + previsao.main.humidity}%,
+//         ${previsao.weather[0].description}
+
+//         `);
+//     }
+//     return res;
+//   })
+//   .then((res) => {
+//     const lista = res.filter(r => r.main.feels_like >= 30);
+//     console.log (`${lista.length} previsões têm
+//       percepção humana de temperatura acima de 30
+//       graus`)
       
-  });
-
-
-
-
-
+//   });
 
 // const fs = require("fs").promises;
 
@@ -272,27 +301,27 @@ axios
 //     "idade" : 17, 
 //     nascimento: "1990-09-09"
 // }
-const fs = require('fs')
-const abrirArquivo = function(nomeArquivo){
-    const exibirConteudo = function(erro, conteudo){
-        if (erro) {
-            console.log(`Deu erro: ${erro}`)
-        } else {
-            console.log(conteudo.toString())
-            const dobro = conteudo.toString() * 2
-            const finalizar = function(erro){
-                if(erro){
-                    console.log(`Deu erro tentando salvar o dobro: ${erro}`)
-                } else {
-                    console.log('Salvou o dobro com sucesso')
-                }
-            }
-            fs.writeFile('dobro.txt', dobro.toString(), finalizar)
-        }
-    }
-    fs.readFile(nomeArquivo, exibirConteudo)
-}
-abrirArquivo('arquivo.txt')
+// const fs = require('fs')
+// const abrirArquivo = function(nomeArquivo){
+//     const exibirConteudo = function(erro, conteudo){
+//         if (erro) {
+//             console.log(`Deu erro: ${erro}`)
+//         } else {
+//             console.log(conteudo.toString())
+//             const dobro = conteudo.toString() * 2
+//             const finalizar = function(erro){
+//                 if(erro){
+//                     console.log(`Deu erro tentando salvar o dobro: ${erro}`)
+//                 } else {
+//                     console.log('Salvou o dobro com sucesso')
+//                 }
+//             }
+//             fs.writeFile('dobro.txt', dobro.toString(), finalizar)
+//         }
+//     }
+//     fs.readFile(nomeArquivo, exibirConteudo)
+// }
+// abrirArquivo('arquivo.txt')
 
 // const fs = require('fs')
 // const abrirArquivo = function(nomeArquivo){
