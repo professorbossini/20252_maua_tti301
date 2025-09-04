@@ -1,3 +1,4 @@
+const { default: axios } = require('axios')
 const express = require('express')
 const app = express()
 app.use(express.json())
@@ -19,15 +20,18 @@ let contador = 0
 */
 //para obter todos os lembretes
 //GET /lembretes
-const lembretes = {};
-contador = 0;
 
 app.get('/lembretes', (req, res) => {
   res.send(lembretes)    
 })
 //para cadastrar novo lembretes
 //POST /lembretes {"texto": "Fazer café"}
-app.post('/lembretes', (req, res) => {
+//app.post('/lembretes', (req, res) => {
+// Alteração para implementar a requisição assincrona ao
+// barramento de eventos
+
+
+app.post("/lembretes", async (req, res) => {
   //incrementar o contador
   contador++
   //extrair a propriedade texto do corpo da requisição
@@ -40,8 +44,15 @@ app.post('/lembretes', (req, res) => {
   //cadastrar esse objeto na base da forma descrita
   lembretes [contador] = lembrete
   //responder ao cliente, enviando o lembrete criado e dizendo que o código de status é 201
-  res.status(201).send(lembretes[contador])
-})
+  await axios.post('http://localhost:10000/eventos', {
+    tipo: "LembreteCriado",
+    dados: {
+      contador,
+      texto
+    }
+  });
+  res.status(201).send(lembretes[contador]);
+});
 
 const port = 4000
 app.listen(port, () => {
