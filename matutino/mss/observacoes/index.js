@@ -5,7 +5,8 @@ app.use(express.json())
 const axios = require ('axios');
 const observacoesPorLembreteId = {}
 // /lembretes/1/observacoes
-app.post('/lembretes/:id/observacoes', async (req, res) => {  const idObs = uuidv4()
+app.post('/lembretes/:id/observacoes', async (req, res) => {  
+  const idObs = uuidv4()
   const { texto } = req.body
   const observacoesDoLembrete = observacoesPorLembreteId[req.params.id] || []
   observacoesDoLembrete.push({id: idObs, texto})
