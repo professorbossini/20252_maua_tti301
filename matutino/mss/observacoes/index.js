@@ -11,6 +11,9 @@ app.post('/lembretes/:id/observacoes', async (req, res) => {
   const observacoesDoLembrete = observacoesPorLembreteId[req.params.id] || []
   observacoesDoLembrete.push({id: idObs, texto})
   observacoesPorLembreteId[req.params.id] = observacoesDoLembrete
+
+  
+
   await axios.post("http://localhost:10000/eventos", {
     tipo: "ObservacaoCriada",
     dados: {  
