@@ -1,3 +1,93 @@
+
+
+
+function buscarDadosUsuario(id) {
+  return new Promise((resolve,reject) => {
+    setTimeout(() => {
+      if (id === 123) {
+        resolve({
+          nome: "João Silva",
+          email: "joao.silva@exemplo.com"
+        })
+      } else {
+        reject("Usuário não foi encontrado");
+      }
+    },2000); // Timer de 2 segundo atraso da resposta
+  })
+}
+
+// buscarDadosUsuario(123)
+// .then((dados)=>{
+//   console.log("Usuário com id: 123 - Dados obtidos: ", dados);
+// })
+// .catch((erro) => {
+//   console.log("Usuário 123: - Erro: ", erro );
+// });
+
+// buscarDadosUsuario(456)
+// .then((dados)=> {
+//   console.log("Usuario com id: 456 - Dados obtidos:", dados);
+// })
+// .catch((erro)=>{
+//   console.log("Usuário 456: - Erro: ", erro)
+// })
+
+
+async function exibirDadosUsuario(id) {
+  try {
+    const dados = await buscarDadosUsuario(id);
+    console.log("Dados do usuário: ", id, " - Dados obtidos:", dados);
+  } catch(erro) {
+    console.log("Usuário id: ", id, " - Erro: ", erro);
+  }
+}
+
+exibirDadosUsuario(123);
+exibirDadosUsuario(456);
+
+
+
+
+
+
+
+
+
+// const axios = require("axios");
+//  //sua chave aqui
+// const appid = "sua_chave_aqui";
+//  //cidade desejada
+//  const q = "Itu";
+//  //unidade de medida de temperatura
+//  const units = "metric";
+//  //idioma
+//  const lang = "pt_BR";
+//  //quantidade de resultados
+//  const cnt = "10"
+//  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${q}&units=${units}&appid=${appid}&lang=${lang}&cnt=${cnt}`;
+
+// axios
+//   .get(url)
+//   .then((res) => {
+//     console.log(res);
+//     return res.data;
+//   })
+//   .then((res) => {
+//     console.log(res.cnt);
+//     return res;
+//   })
+//   .then((res) => {
+//     console.log("aqui", res);
+//     return res['list'];
+//   })
+//   .then((res) => {
+//     for (let previsao of res) {
+//       console.log(`
+//         ${new Date(+previsao.dt * 1000).toLocaleString()},
+//         ${'Min: ' + previsao.main.temp_min}\u00B0C,
+//         ${'Max: ' + previsao.main.temp_max}\u00B0C,
+//         ${'Hum: ' + previsao.main.humidity}%,
+//         ${previsao.weather[0].description}
 function somaAte(numero){
   return numero >= 0
   ? Promise.resolve((numero * (numero + 1) / 2))
@@ -77,7 +167,22 @@ chamadaAssincrona()
 //     console.log (`${lista.length} previsões têm
 //       percepção humana de temperatura acima de 30
 //       graus`)
+//         `);
+//     }
+//     return res;
+//   })
+//   .then((res) => {
+//     const lista = res.filter(r => r.main.feels_like >= 30);
+//     console.log (`${lista.length} previsões têm
+//       percepção humana de temperatura acima de 30
+//       graus`)
       
+//   });
+
+
+
+
+
 //   });
 
 // const fs = require("fs").promises;
