@@ -1,0 +1,26 @@
+const express = require ('express')
+const app = express()
+app.use(express.json())
+const palavraChave = 'importante'
+const funcoes = {
+  ObservacaoCriada: (observacao) => {
+    //verificar se o texto da observacao contém a palavra chave, trocando o status dela, usando operador ternário obrigatoriamente
+    observacao.status = observacao.texto.includes(palavraChave) ? 'importante' : 'comum'
+    //emitir um evento do tipo ObservacaoClassificada
+    axios.post('http://localhost:10000/eventos', {
+      tipo: 'ObservacaoClassificada',
+      dados: observacao
+    })
+    
+  }
+}
+//deve ser post e receber requisições no padrão /eventos
+app.post('/eventos', (req, res) => {
+  funcoes[req.body.tipo](req.body.dados)
+  res.status(200).send({msg: 'ok'})
+})
+
+
+//e colocar o servidor para executar na porta 7000
+const port = 7000
+app.listen(port, () => console.log(`Classificação. Porta ${port}.`))
