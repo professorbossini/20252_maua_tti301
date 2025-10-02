@@ -7,6 +7,7 @@ const funcoes = {
     //verificar se o texto da observacao contém a palavra chave, trocando o status dela, usando operador ternário obrigatoriamente
     observacao.status = observacao.texto.includes(palavraChave) ? 'importante' : 'comum'
     //emitir um evento do tipo ObservacaoClassificada
+    const axios = require('axios')
     axios.post('http://localhost:10000/eventos', {
       tipo: 'ObservacaoClassificada',
       dados: observacao
