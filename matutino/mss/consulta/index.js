@@ -1,4 +1,5 @@
 const express = require('express')
+const axios = require('axios')
 const app = express()
 app.use(express.json())
 
@@ -38,4 +39,14 @@ app.get('/lembretes', (req, res) => {
 
 
 const port = 6000
-app.listen(port, () => console.log(`Consulta. Porta ${port}.`))
+app.listen(port, async () => {
+  console.log(`Consulta. Porta ${port}.`)
+  const resp = await axios.get('http://localhost:10000/eventos')
+  resp.data.forEach((valor, indice, colecao) => {
+    try{
+      funcoes[valor.tipo](valor.dados)
+    } 
+    catch(err){}
+  })
+
+})

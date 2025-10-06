@@ -1,4 +1,5 @@
 const express = require ('express')
+const axios = require ('axios')
 const app = express()
 app.use(express.json())
 const palavraChave = 'importante'
@@ -27,4 +28,13 @@ app.post('/eventos', (req, res) => {
 
 //e colocar o servidor para executar na porta 7000
 const port = 7000
-app.listen(port, () => console.log(`Classificação. Porta ${port}.`))
+app.listen(port, async () => {
+  console.log(`Classificação. Porta ${port}.`)
+  const resp = await axios.get('http://localhost:10000/eventos')
+  resp.data.forEach((valor, indice, colecao) => {
+    try{
+      funcoes[valor.tipo](valor.dados)  
+    }
+    catch(err){}
+  })
+})
