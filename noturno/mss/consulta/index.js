@@ -38,7 +38,7 @@ app.post("/eventos", (req, res) => {
 app.listen(6000, async () => {
     console.log("Consultas. Porta 6000.")
     try{
-        const resp = await axios.get('http://localhost:10000/eventos')
+        const resp = await axios.get('http://eventos:10000/eventos')
         resp.data.forEach((valor, indice, colecao) => {
             try {
                 funcoes[valor.tipo](valor.dados)
