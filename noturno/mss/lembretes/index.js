@@ -15,7 +15,7 @@ app.post('/lembretes', async (req, res) => {
     contador++
     const { texto } = req.body
     lembretes[contador] = { contador, texto }
-    await axios.post('http://eventos:10000/eventos', {
+    await axios.post('http://127.0.0.1:10000/eventos', {
         tipo: "LembreteCriado",
         dados: {
             contador,
