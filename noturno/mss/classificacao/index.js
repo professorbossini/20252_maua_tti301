@@ -1,30 +1,29 @@
-const express = require('express')
-const axios = require('axios')
-const app = express()
-app.use(express.json())
+const express = require("express");
+const axios = require("axios");
+const app = express();
+app.use(express.json());
 
-const palavraChave = 'importante'
+const palavraChave = "importante";
 
 const funcoes = {
-    ObservacaoCriada: (observacao) => {
-        observacao.status = 
-            observacao.texto.includes(palavraChave)
-            ? 'importante'
-            : 'comum'
-        axios.post('http://localhost:10000/eventos', {
-            tipo: 'ObservacaoClassificada',
-            dados: observacao
-        })
-    }
-}
+  ObservacaoCriada: (observacao) => {
+    observacao.status = observacao.texto.includes(palavraChave)
+      ? "importante"
+      : "comum";
+    axios.post("http://10.2.4.75:10000/eventos", {
+      tipo: "ObservacaoClassificada",
+      dados: observacao,
+    });
+  },
+};
 
-app.post('/eventos', (req, res) => {
-    try{
-        funcoes[req.body.tipo](req.body.dados)
-    } catch(err){}
-    res.status(200).send({ msg: 'ok' })
-})
+app.post("/eventos", (req, res) => {
+  try {
+    funcoes[req.body.tipo](req.body.dados);
+  } catch (err) {}
+  res.status(200).send({ msg: "ok" });
+});
 
 app.listen(7001, () => {
-    console.log('Classificação. Porta 7001')
-})
+  console.log("Classificação. Porta 7001");
+});
