@@ -1,0 +1,3 @@
+20/10/2025: Bossini
+Terminamos na página 102, explicando o que é um serviço
+retomar a partir desta página, revendo o que é um serviço e criando um com expose
