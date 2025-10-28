@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lembretes-deployment-sub3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lembretes-sub3
+  template:
+    metadata:
+      labels:
+        app: lembretes-sub3
+    spec:
+      containers:
+        - name: lembretes-sub3
+          image: asbonato/lembretes:0.0.1
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: 1
