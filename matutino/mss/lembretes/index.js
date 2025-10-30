@@ -42,7 +42,7 @@ app.post("/lembretes", async (req, res) => {
   //cadastrar esse objeto na base da forma descrita
   lembretes [contador] = lembrete
   //responder ao cliente, enviando o lembrete criado e dizendo que o código de status é 201
-  await axios.post("http://localhost:10000/eventos", {
+  await axios.post("http://barramento-de-eventos-service:10000/eventos", {
     tipo: "LembreteCriado",
     dados: {
       contador,
@@ -64,6 +64,6 @@ app.post("/eventos", (req, res) => {
 const port = 4000
 app.listen(port, () => {
   console.log("Nova versão");
-  console.log("Agora usando o docker hub 2");
+  console.log("Agora usando o docker hub - nova versão e alterada novamente");
   console.log(`Lembretes. Porta ${port}.`)
 })
