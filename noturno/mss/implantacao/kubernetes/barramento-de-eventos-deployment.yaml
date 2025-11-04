@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: barramento-de-eventos-deployment-sub3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: barramento-de-eventos-sub3
+  template:
+    metadata:
+      labels:
+        app: barramento-de-eventos-sub3
+    spec:
+      containers:
+        - name: barramento-de-eventos-sub3
+          image: asbonato/barramento-de-eventos-sub3
+          imagePullPolicy: Never
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: barramento-de-eventos-service-sub3
+spec:
+  type: ClusterIP
+  selector:
+    app: barramento-de-eventos-sub3
+  ports:
+    - name: barramento-de-eventos-sub3
+      protocol: TCP
+      port: 10000
+      targetPort: 10000
