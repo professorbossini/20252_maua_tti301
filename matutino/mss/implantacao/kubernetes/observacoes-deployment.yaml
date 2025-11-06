@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lembretes-deployment
+  name: observacoes-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: lembretes
+      app: observacoes
   template:
     metadata:
       labels:
-        app: lembretes
+        app: observacoes
     spec:
       containers:
-      - name: lembretes
-        image: mamazzei/lembretes
+      - name: observacoes
+        image: mamazzei/observacoes
         resources:
           limits:
             memory: "256Mi"
@@ -22,12 +22,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: lembretes-service
+  name: observacoes-service
 spec:
-  type: NodePort  
+  type: NodePort
   selector:
-    app: lembretes
+    app: observacoes
   ports:
     - protocol: TCP     
-      port: 4000
-      targetPort: 4000
+      port: 5000
+      targetPort: 5000

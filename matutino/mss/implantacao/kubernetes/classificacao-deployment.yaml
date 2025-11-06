@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lembretes-deployment
+  name: classificacao-deployment
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: lembretes
+      app: classificacao
   template:
     metadata:
       labels:
-        app: lembretes
+        app: classificacao
     spec:
       containers:
-      - name: lembretes
-        image: mamazzei/lembretes
+      - name: classificacao
+        image: mamazzei/classificacao
         resources:
           limits:
             memory: "256Mi"
@@ -22,12 +22,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: lembretes-service
+  name: classificacao-service
 spec:
-  type: NodePort  
   selector:
-    app: lembretes
+    app: classificacao
   ports:
     - protocol: TCP     
-      port: 4000
-      targetPort: 4000
+      port: 7000
+      targetPort: 7000
