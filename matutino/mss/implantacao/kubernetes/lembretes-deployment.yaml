@@ -24,7 +24,6 @@ kind: Service
 metadata:
   name: lembretes-service
 spec:
-  type: ClusterIP
   selector:
     app: lembretes
   ports:
