@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: classificacao-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: classificacao
+  template:
+    metadata:
+      labels:
+        app: classificacao
+    spec:
+      containers:
+      - name: classificacao
+        image: mamazzei/classificacao
+        resources:
+          limits:
+            memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: classificacao-service
+spec:
+  selector:
+    app: classificacao
+  ports:
+    - protocol: TCP     
+      port: 7000
+      targetPort: 7000
